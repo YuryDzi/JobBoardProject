@@ -39,6 +39,12 @@ const jobTypeFilter = [
   { title: 'Contract' },
 ];
 
+const jobConditionFilter = [
+  { title: 'On-Site' },
+  { title: 'Remote' },
+  { title: 'Hybrid' },
+];
+
 const industryFilter = [
   { title: 'Business Operations & Management' },
   { title: 'Construction' },
@@ -54,5 +60,5 @@ const industryFilter = [
 ];
 
 module.exports = {
-  whatFilter, whereFilter, datePostedFilter, jobTypeFilter, industryFilter,
+  whatFilter, whereFilter, datePostedFilter, jobTypeFilter, industryFilter, jobConditionFilter,
 };
