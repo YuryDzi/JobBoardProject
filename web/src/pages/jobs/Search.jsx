@@ -115,19 +115,6 @@ function Search({ advancedSearch }) {
     history.push({ pathname: '/', search: `${params.toString()}` });
   }, [datePosted]);
 
-  // const getJobsLocation = useCallback(async (filterCondition) => {
-  //   const queryParams = { page: 1, limit: 10 };
-  //   const response = await getJobs(queryParams);
-  //   const searchResults = [];
-  //   response.data.nodes.forEach((loc) => {
-  //     searchResults.push({ title: loc.jobLocation });
-  //     if (!response) {
-  //       return {};
-  //     }
-  //     return searchResults;
-  //   });
-  // }, []);
-
   const getJobsLocation = useCallback(async (filterCondition) => {
     const jobs = await getJobs();
     const response = jobs.data.nodes;
@@ -150,33 +137,36 @@ function Search({ advancedSearch }) {
   useEffect(() => {
     // << here you need to write your code to fetch your jobCondition value >>
     getJobsLocation(jobCondition).then((jobs) => {
-        switch (jobCondition) {
-      case 'On-site': jobs.filter((con) => con.jobLocation === 'in_person');
-        break;
-      case 'Remote': jobs.filter((con) => con.jobLocation === 'remote');
-        break;
-      case 'Hybrid': jobs.filter((con) => con.jobLocation === 'hybrid');
-        break;
-      default:
-        jobs = null;
-    }
-    if (jobs != null) {
+      let condition = jobs;
+      console.log(condition);
+      console.log('this is condition log');
+      switch (jobCondition) {
+        case 'On-site': condition.filter((con) => con.jobLocation === 'in_person');
+          break;
+        case 'Remote': condition.filter((con) => con.jobLocation === 'remote');
+          break;
+        case 'Hybrid': condition.filter((con) => con.jobLocation === 'hybrid');
+          break;
+        default:
+          condition = null;
+      }
+      if (condition != null) {
+        const params = new URLSearchParams({
+          jobs: jobFilter || null,
+          location: locationFilter || null,
+          since: datePosted || null,
+          conditions: jobCondition,
+        });
+        history.push({ pathname: '/', search: `${params.toString()}` });
+        return;
+      }
       const params = new URLSearchParams({
         jobs: jobFilter || null,
         location: locationFilter || null,
-        since: datePosted || null,
-        conditions: `${con}`,
+        since: null,
+        conditions: null,
       });
       history.push({ pathname: '/', search: `${params.toString()}` });
-      return;
-    }
-    const params = new URLSearchParams({
-      jobs: jobFilter || null,
-      location: locationFilter || null,
-      since: null,
-      conditions: null,
-    });
-    history.push({ pathname: '/', search: `${params.toString()}` });
     });
   }, [jobCondition, getJobsLocation]);
 
