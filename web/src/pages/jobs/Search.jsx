@@ -135,17 +135,18 @@ function Search({ advancedSearch }) {
   }, []);
 
   useEffect(() => {
-    // << here you need to write your code to fetch your jobCondition value >>
     getJobsLocation(jobCondition).then((jobs) => {
-      let condition = jobs;
+      let condition = [];
       console.log(condition);
       console.log('this is condition log');
       switch (jobCondition) {
-        case 'On-site': condition.filter((con) => con.jobLocation === 'in_person');
+        case 'Any': condition = jobs;
           break;
-        case 'Remote': condition.filter((con) => con.jobLocation === 'remote');
+        case 'On-Site': condition = jobs.filter((job) => job.jobLocation === 'in_person');
           break;
-        case 'Hybrid': condition.filter((con) => con.jobLocation === 'hybrid');
+        case 'Remote': condition = jobs.filter((job) => job.jobLocation === 'remote');
+          break;
+        case 'Hybrid': condition = jobs.filter((job) => job.jobLocation === 'hybrid');
           break;
         default:
           condition = null;
@@ -158,6 +159,8 @@ function Search({ advancedSearch }) {
           conditions: jobCondition,
         });
         history.push({ pathname: '/', search: `${params.toString()}` });
+        console.log(condition);
+        console.log('this is condition afterlog');
         return;
       }
       const params = new URLSearchParams({
@@ -169,38 +172,6 @@ function Search({ advancedSearch }) {
       history.push({ pathname: '/', search: `${params.toString()}` });
     });
   }, [jobCondition, getJobsLocation]);
-
-  // useEffect(() => {
-  //   let condition = getJobsLocation;
-  //   switch (jobCondition) {
-  //     case 'On-site': condition.filter((con) => con.title === 'in_person');
-  //       break;
-  //     case 'Remote': condition.filter((con) => con.title === 'remote');
-  //       break;
-  //     case 'Hybrid': condition.filter((con) => con.title === 'hybrid');
-  //       break;
-  //     default:
-  //       condition = null;
-  //   }
-  //   if (condition != null) {
-  //     const params = new URLSearchParams({
-  //       jobs: jobFilter || null,
-  //       location: locationFilter || null,
-  //       since: datePosted || null,
-  //       conditions: `${condition}`,
-  //     });
-  //     history.push({ pathname: '/', search: `${params.toString()}` });
-  //     return;
-  //   } console.log('resp');
-  //   console.log(condition);
-  //   const params = new URLSearchParams({
-  //     jobs: jobFilter || null,
-  //     location: locationFilter || null,
-  //     since: null,
-  //     conditions: null,
-  //   });
-  //   history.push({ pathname: '/', search: `${params.toString()}` });
-  // }, [jobCondition]);
 
   useEffect(() => {
     if (companyName && companyName.length) {
