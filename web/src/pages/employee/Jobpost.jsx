@@ -78,6 +78,7 @@ const Jobpost = ({ handleClose, getCompanyJobs }) => {
   const [jobLocation, setJobLocation] = useState({
     remote: true,
     onsite: true,
+    hybrid: true,
   });
   const [isFeatured, setIsFeatured] = useState(false);
   const [type, setType] = useState({

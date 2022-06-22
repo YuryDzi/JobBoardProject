@@ -56,7 +56,7 @@ const getCompanyConnection = () => {
     address: String,
     jobLocation: {
       type: String,
-      enum: ['remote', 'in_person'],
+      enum: ['remote', 'in_person', 'hybrid'],
     },
     type: {
       type: String,

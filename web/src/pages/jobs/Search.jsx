@@ -149,7 +149,7 @@ function Search({ advancedSearch }) {
         case 'Hybrid': condition = jobs.filter((job) => job.jobLocation === 'hybrid');
           break;
         default:
-          condition = null;
+          condition = [];
       }
       if (condition != null) {
         const params = new URLSearchParams({
