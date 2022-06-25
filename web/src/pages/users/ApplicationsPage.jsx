@@ -1,10 +1,11 @@
-import { Typography } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import getUserApplications from '../../api/application/getUserApplications';
 import ApplicationCard from './ApplicationCard';
+import './css/ApplicationsPage.css';
+import SideBar from './components/SideBar';
 
-const ApplicationsPage = () => {
+function ApplicationsPage() {
   const [applications, setApplications] = useState([]);
 
   const user = useSelector((state) => state.user.user.id);
@@ -16,17 +17,17 @@ const ApplicationsPage = () => {
   }, []);
 
   return (
-    <div style={{ margin: '30px' }}>
-      <Typography fontSize={26} fontWeight="bold" marginBottom="15px">
-        Your Applied Jobs
-      </Typography>
-      <div>
-        {applications && applications.length
-          ? applications.map((application) => <ApplicationCard application={application} />)
-          : null}
+    <div className="App-Page">
+      <div className="AppGlass">
+        <SideBar />
+        <div>
+          {applications && applications.length
+            ? applications.map((application) => <ApplicationCard application={application} />)
+            : null}
+        </div>
       </div>
     </div>
   );
-};
+}
 
 export default ApplicationsPage;
