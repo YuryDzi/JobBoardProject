@@ -1,30 +1,35 @@
-import { React, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import getUserApplications from '../../api/application/getUserApplications';
-import ApplicationCard from './ApplicationCard';
+import { React } from 'react';
+// useEffect, useState
+// import { useSelector } from 'react-redux';
+// import getUserApplications from '../../api/application/getUserApplications';
+// import ApplicationCard from './ApplicationCard';
 import './css/ApplicationsPage.css';
 import SideBar from './components/SideBar';
+import MainDash from './components/MainDash';
+import RightSide from './components/RightSide';
 
 function ApplicationsPage() {
-  const [applications, setApplications] = useState([]);
+  // const [applications, setApplications] = useState([]);
 
-  const user = useSelector((state) => state.user.user.id);
+  // const user = useSelector((state) => state.user.user.id);
 
-  useEffect(() => {
-    getUserApplications(user).then((res) => {
-      setApplications(res.data.nodes);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getUserApplications(user).then((res) => {
+  //     setApplications(res.data.nodes);
+  //   });
+  // }, []);
 
   return (
     <div className="App-Page">
       <div className="AppGlass">
         <SideBar />
-        <div>
+        <MainDash />
+        <RightSide />
+        {/* <div>
           {applications && applications.length
             ? applications.map((application) => <ApplicationCard application={application} />)
             : null}
-        </div>
+        </div> */}
       </div>
     </div>
   );
