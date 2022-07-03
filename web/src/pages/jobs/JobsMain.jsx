@@ -29,12 +29,14 @@ function JobsMain() {
   const [totalNumberOfJobs, setTotalNumberOfJobs] = useState(0);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  // const [jobCondition, setJobCondition] = useState();
 
   const getPaginatedJobs = async () => {
     const queryParams = { page: currentPage, limit: 10 };
     const locFilter = query.getAll('location');
     const qFilter = query.getAll('jobs');
     const sinceFilter = query.getAll('since');
+    const conditions = query.getAll('conditions');
     if (typeof locFilter === 'string') {
       queryParams.city = locFilter;
     } else if (locFilter.length) {
@@ -48,6 +50,9 @@ function JobsMain() {
     }
     if (queryParams.city === 'Any location') {
       queryParams.city = null;
+    }
+    if (conditions != null) {
+      queryParams.location = conditions[0];
     }
     checkProperties(queryParams);
     const response = await getJobs(queryParams);
@@ -69,7 +74,8 @@ function JobsMain() {
     const jobFilter = query.getAll('jobs');
     const locFilter = query.getAll('location');
     const sinceFilter = query.getAll('since');
-    if (!jobFilter.length && !locFilter.length && !sinceFilter.length) {
+    const conditions = query.getAll('conditions');
+    if (!jobFilter.length && !locFilter.length && !sinceFilter.length && !conditions.length) {
       setSearchFilter(null);
       return;
     }

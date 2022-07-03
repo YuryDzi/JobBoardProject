@@ -101,7 +101,7 @@ function Search({ advancedSearch }) {
     }
     let condition = null;
     switch (jobCondition) {
-      case 'On-Site': condition = 'in-person';
+      case 'On-Site': condition = 'in_person';
         break;
       case 'Remote': condition = 'remote';
         break;
@@ -110,55 +110,55 @@ function Search({ advancedSearch }) {
       default:
         condition = null;
     }
-    // if (date != null || condition != null) {
+    if (date != null || condition != null) {
+      const params = new URLSearchParams({
+        jobs: jobFilter || null,
+        location: locationFilter || null,
+        conditions: condition || null,
+        since: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
+      });
+      history.push({ pathname: '/', search: `${params.toString()}` });
+      return;
+    }
     const params = new URLSearchParams({
       jobs: jobFilter || null,
       location: locationFilter || null,
-      conditions: condition || null,
-      since: (date != null && `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`) || null,
+      since: null,
+      conditions: jobCondition || null,
     });
     history.push({ pathname: '/', search: `${params.toString()}` });
-    // return;
-    // }
-    // const params = new URLSearchParams({
-    //   jobs: jobFilter || null,
-    //   location: locationFilter || null,
-    //   since: null,
-    //   conditions: condition || null,
-    // });
-    // history.push({ pathname: '/', search: `${params.toString()}` });
-  }, [datePosted, jobCondition, companyName]);
+  }, [datePosted]);
 
-  // useEffect(() => {
-  //   let condition = null;
-  //   switch (jobCondition) {
-  //     case 'On-Site': condition = 'in-person';
-  //       break;
-  //     case 'Remote': condition = 'remote';
-  //       break;
-  //     case 'Hybrid': condition = 'hybrid';
-  //       break;
-  //     default:
-  //       condition = null;
-  //   }
-  //   if (condition != null) {
-  //     const params = new URLSearchParams({
-  //       jobs: jobFilter || null,
-  //       location: locationFilter || null,
-  //       since: datePosted || null,
-  //       conditions: condition,
-  //     });
-  //     history.push({ pathname: '/', search: `${params.toString()}` });
-  //     return;
-  //   }
-  //   const params = new URLSearchParams({
-  //     jobs: jobFilter || null,
-  //     location: locationFilter || null,
-  //     since: datePosted || null,
-  //     conditions: null,
-  //   });
-  //   history.push({ pathname: '/', search: `${params.toString()}` });
-  // }, [jobCondition]);
+  useEffect(() => {
+    let condition = null;
+    switch (jobCondition) {
+      case 'On-Site': condition = 'in_person';
+        break;
+      case 'Remote': condition = 'remote';
+        break;
+      case 'Hybrid': condition = 'hybrid';
+        break;
+      default:
+        condition = null;
+    }
+    if (condition != null) {
+      const params = new URLSearchParams({
+        jobs: jobFilter || null,
+        location: locationFilter || null,
+        since: datePosted || null,
+        conditions: condition,
+      });
+      history.push({ pathname: '/', search: `${params.toString()}` });
+      return;
+    }
+    const params = new URLSearchParams({
+      jobs: jobFilter || null,
+      location: locationFilter || null,
+      since: datePosted || null,
+      conditions: null,
+    });
+    history.push({ pathname: '/', search: `${params.toString()}` });
+  }, [jobCondition]);
 
   useEffect(() => {
     if (companyName && companyName.length) {
