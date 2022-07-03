@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { Autocomplete, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -45,6 +45,7 @@ function Search({ advancedSearch }) {
   const [locationFilter, setLocationFilter] = useState('');
 
   // Query - Other Search inputs
+  // to do: read state from URL param
   const [datePosted, setDatePosted] = useState('Any date');
   const [companyName, setCompanyName] = useState('');
   const [jobCondition, setJobConditionFilter] = useState('On-site/Remote');
@@ -98,80 +99,66 @@ function Search({ advancedSearch }) {
       default:
         date = null;
     }
-    if (date != null) {
-      const params = new URLSearchParams({
-        jobs: jobFilter || null,
-        location: locationFilter || null,
-        since: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-      });
-      history.push({ pathname: '/', search: `${params.toString()}` });
-      return;
+    let condition = null;
+    switch (jobCondition) {
+      case 'On-Site': condition = 'in-person';
+        break;
+      case 'Remote': condition = 'remote';
+        break;
+      case 'Hybrid': condition = 'hybrid';
+        break;
+      default:
+        condition = null;
     }
+    // if (date != null || condition != null) {
     const params = new URLSearchParams({
       jobs: jobFilter || null,
       location: locationFilter || null,
-      since: null,
+      conditions: condition || null,
+      since: (date != null && `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`) || null,
     });
     history.push({ pathname: '/', search: `${params.toString()}` });
-  }, [datePosted]);
+    // return;
+    // }
+    // const params = new URLSearchParams({
+    //   jobs: jobFilter || null,
+    //   location: locationFilter || null,
+    //   since: null,
+    //   conditions: condition || null,
+    // });
+    // history.push({ pathname: '/', search: `${params.toString()}` });
+  }, [datePosted, jobCondition, companyName]);
 
-  const getJobsLocation = useCallback(async (filterCondition) => {
-    const jobs = await getJobs();
-    const response = jobs.data.nodes;
-    const conditionOptions = {
-      'On-site': 'in_person',
-      Remote: 'remote',
-      Hybrid: 'hybrid',
-    };
-
-    const filteredJobs = await response.filter(
-      (job) => job.jobFilter === conditionOptions[filterCondition],
-    );
-
-    if (!filteredJobs) {
-      return {};
-    }
-    return filteredJobs;
-  }, []);
-
-  useEffect(() => {
-    getJobsLocation(jobCondition).then((jobs) => {
-      let condition = [];
-      console.log(condition);
-      console.log('this is condition log');
-      switch (jobCondition) {
-        case 'Any': condition = jobs;
-          break;
-        case 'On-Site': condition = jobs.filter((job) => job.jobLocation === 'in_person');
-          break;
-        case 'Remote': condition = jobs.filter((job) => job.jobLocation === 'remote');
-          break;
-        case 'Hybrid': condition = jobs.filter((job) => job.jobLocation === 'hybrid');
-          break;
-        default:
-          condition = [];
-      }
-      if (condition != null) {
-        const params = new URLSearchParams({
-          jobs: jobFilter || null,
-          location: locationFilter || null,
-          since: datePosted || null,
-          conditions: jobCondition,
-        });
-        history.push({ pathname: '/', search: `${params.toString()}` });
-        console.log(condition);
-        console.log('this is condition afterlog');
-        return;
-      }
-      const params = new URLSearchParams({
-        jobs: jobFilter || null,
-        location: locationFilter || null,
-        since: null,
-        conditions: null,
-      });
-      history.push({ pathname: '/', search: `${params.toString()}` });
-    });
-  }, [jobCondition, getJobsLocation]);
+  // useEffect(() => {
+  //   let condition = null;
+  //   switch (jobCondition) {
+  //     case 'On-Site': condition = 'in-person';
+  //       break;
+  //     case 'Remote': condition = 'remote';
+  //       break;
+  //     case 'Hybrid': condition = 'hybrid';
+  //       break;
+  //     default:
+  //       condition = null;
+  //   }
+  //   if (condition != null) {
+  //     const params = new URLSearchParams({
+  //       jobs: jobFilter || null,
+  //       location: locationFilter || null,
+  //       since: datePosted || null,
+  //       conditions: condition,
+  //     });
+  //     history.push({ pathname: '/', search: `${params.toString()}` });
+  //     return;
+  //   }
+  //   const params = new URLSearchParams({
+  //     jobs: jobFilter || null,
+  //     location: locationFilter || null,
+  //     since: datePosted || null,
+  //     conditions: null,
+  //   });
+  //   history.push({ pathname: '/', search: `${params.toString()}` });
+  // }, [jobCondition]);
 
   useEffect(() => {
     if (companyName && companyName.length) {
@@ -184,9 +171,9 @@ function Search({ advancedSearch }) {
     }
   }, [companyName]);
 
-  useEffect(() => {
-    if (jobFilter === 'null') { setJobFilter(''); }
-  }, [jobFilter]);
+  // useEffect(() => {
+  //   if (jobFilter === 'null') { setJobFilter(''); }
+  // }, [jobFilter]);
 
   const handleSearchSubmit = () => {
     if (!jobFilter && !locationFilter) {
@@ -199,7 +186,7 @@ function Search({ advancedSearch }) {
     });
     history.push({ pathname: '/', search: `${params.toString()}` });
   };
-
+  // get list of comp names for dropdown
   const getCompanyNames = async () => {
     const queryParams = { page: 1, limit: 10 };
     const response = await getCompanies(queryParams);
@@ -400,7 +387,7 @@ function Search({ advancedSearch }) {
               marginLeft: '5px',
               marginTop: '10px',
             }}
-            placeholder="Location"
+            placeholder="Conditions"
             value={jobCondition}
             setValue={setJobConditionFilter}
             options={jobConditionFilter}

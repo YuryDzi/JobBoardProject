@@ -40,7 +40,6 @@ const jobTypeFilter = [
 ];
 
 const jobConditionFilter = [
-  { title: 'Any' },
   { title: 'On-Site' },
   { title: 'Remote' },
   { title: 'Hybrid' },
