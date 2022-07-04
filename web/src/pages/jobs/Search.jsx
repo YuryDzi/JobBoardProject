@@ -171,9 +171,9 @@ function Search({ advancedSearch }) {
     }
   }, [companyName]);
 
-  // useEffect(() => {
-  //   if (jobFilter === 'null') { setJobFilter(''); }
-  // }, [jobFilter]);
+  useEffect(() => {
+    if (jobFilter === 'null') { setJobFilter(''); }
+  }, [jobFilter]);
 
   const handleSearchSubmit = () => {
     if (!jobFilter && !locationFilter) {
