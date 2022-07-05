@@ -3,52 +3,36 @@
 /* eslint-disable no-nested-ternary */
 import Box from '@mui/material/Box';
 import React, { useEffect, useState } from 'react';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
-import LockIcon from '@mui/icons-material/Lock';
 import TextField from '@mui/material/TextField';
 // import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import putUser from '../../api/user/putUser';
 import postUser from '../../api/user/postUser';
-import ResumeModal from './ResumeModal';
 import getUser from '../../api/user/getUser';
-import upload from '../../api/media/upload';
-import JobHistoryModal from './JobHistoryModal';
-
 import { userDets } from '../../app/actions';
 import PdfSVG from '../../components/svg/PdfSVG';
 
-async function postImages({ image }) {
-  // eslint-disable-next-line no-undef
-  const formData = new FormData();
-  formData.append('imageData', image);
-  const response = await upload(formData);
-  return response;
-}
-
-function UserProfile() {
+function JobHistoryModal() {
   // const history = useHistory();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const [userDetail, setUserDetail] = useState({});
 
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const [showMe, setShowMe] = useState(true);
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
+  // const handleOpen = () => setIsOpen(true);
+  // const handleClose = () => setIsOpen(false);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [mobile, setmobile] = useState('');
-  const [city, setCity] = useState('');
-  const [zipcode, setZipcode] = useState('');
-  const [resume, setResume] = useState('');
-  const [cover, setCover] = useState('');
+  const [employerName, setEmployerName] = useState('');
+  const [position, setPosition] = useState('');
+  const [location, setLocation] = useState('');
+  const [timePerioud, setTimePerioud] = useState('');
+  const [description, setDescription] = useState('');
+  const [website, setWebsite] = useState('');
   const [flag, setFlag] = useState(false);
-  const [email, setEmail] = useState('');
   const [skills, setSkills] = useState('');
   const contactInfo = () => {
     setShowMe(!showMe);
@@ -68,260 +52,90 @@ function UserProfile() {
     p: 4,
   };
 
-  const getUserDetails = async () => {
-    const userDetails = await getUser(user.user.id);
-    console.log(userDetails);
-    if (!userDetails) {
-      console.log('bruh');
-      setFlag(true);
-    } else {
-      console.log('lol');
-      setUserDetail(userDetails.data);
-      setFirstName(userDetails.data.name.split(' ').slice(0, -1).join(' '));
-      setLastName(userDetails.data.name.split(' ').slice(-1).join(' '));
-      setmobile(userDetails.data.contactNo);
-      setCity(userDetails.data.city);
-      setZipcode(userDetails.data.zip);
-      setSkills(userDetails.data.skills);
-    }
-  };
+  // const getUserDetails = async () => {
+  //   const userDetails = await getUser(user.user.id);
+  //   console.log(userDetails);
+  //   if (!userDetails) {
+  //     console.log('bruh');
+  //     setFlag(true);
+  //   } else {
+  //     console.log('lol');
+  //     setUserDetail(userDetails.data);
+  //     setFirstName(userDetails.data.name.split(' ').slice(0, -1).join(' '));
+  //     setLastName(userDetails.data.name.split(' ').slice(-1).join(' '));
+  //     setmobile(userDetails.data.contactNo);
+  //     setCity(userDetails.data.city);
+  //     setZipcode(userDetails.data.zip);
+  //     setSkills(userDetails.data.skills);
+  //   }
+  // };
 
-  const putUserDetails = async () => {
-    const resumes = [];
-    resumes.push(resume);
-    const coverLetters = [];
-    const emails = [];
-    emails.push(email);
-    coverLetters.push(cover);
-    if (flag) {
-      const body = {
-        id: user.user.id,
-        name: firstName.concat(' ', lastName),
-        contactNo: mobile,
-        city: city,
-        zip: zipcode,
-        skills: skills,
-        resumes,
-        coverLetters,
-        emails,
-      };
-      console.log(body);
-      dispatch(userDets({
-        name: firstName.concat(' ', lastName),
-        contactNo: mobile,
-        city: city,
-        zip: zipcode,
-        skills: skills,
-      }));
-      const response = await postUser(body);
-      getUserDetails();
-    } else {
-      console.log('in else');
-      const body = {
-        name: firstName.concat(' ', lastName),
-        contactNo: mobile,
-        city: city,
-        zip: zipcode,
-        skills: skills,
-        resumes,
-        coverLetters,
-        emails,
-      };
-      console.log(body);
-      dispatch(userDets({
-        name: firstName.concat(' ', lastName),
-        contactNo: mobile,
-        city: city,
-        zip: zipcode,
-        skills: skills,
-      }));
-      const updateResponse = await putUser(body, user.user.id);
-      console.log(updateResponse);
-      getUserDetails();
-    }
-  };
-  const uploadResume = async (event) => {
-    event.preventDefault();
-    const fil = event.target.files[0];
-    const result = await postImages({ image: fil });
-    if (!result) {
-      return;
-    }
-    setResume(result.data.url);
-  };
-  const uploadCoverLetter = async (event) => {
-    event.preventDefault();
-    const fil = event.target.files[0];
-    const result = await postImages({ image: fil });
-    if (!result) {
-      return;
-    }
-    setCover(result.data.url);
-  };
-  useEffect(() => {
-    getUserDetails();
-  }, []);
+  // const putUserDetails = async () => {
+  //   const resumes = [];
+  //   resumes.push(resume);
+  //   const coverLetters = [];
+  //   const emails = [];
+  //   emails.push(email);
+  //   coverLetters.push(cover);
+  //   if (flag) {
+  //     const body = {
+  //       id: user.user.id,
+  //       name: firstName.concat(' ', lastName),
+  //       contactNo: mobile,
+  //       city: city,
+  //       zip: zipcode,
+  //       skills: skills,
+  //       resumes,
+  //       coverLetters,
+  //       emails,
+  //     };
+  //     console.log(body);
+  //     dispatch(
+  //       userDets({
+  //         name: firstName.concat(' ', lastName),
+  //         contactNo: mobile,
+  //         city: city,
+  //         zip: zipcode,
+  //         skills: skills,
+  //       }),
+  //     );
+  //     const response = await postUser(body);
+  //     getUserDetails();
+  //   } else {
+  //     console.log('in else');
+  //     const body = {
+  //       name: firstName.concat(' ', lastName),
+  //       contactNo: mobile,
+  //       city: city,
+  //       zip: zipcode,
+  //       skills: skills,
+  //       resumes,
+  //       coverLetters,
+  //       emails,
+  //     };
+  //     console.log(body);
+  //     dispatch(
+  //       userDets({
+  //         name: firstName.concat(' ', lastName),
+  //         contactNo: mobile,
+  //         city: city,
+  //         zip: zipcode,
+  //         skills: skills,
+  //       }),
+  //     );
+  //     const updateResponse = await putUser(body, user.user.id);
+  //     console.log(updateResponse);
+  //     getUserDetails();
+  //   }
+  // };
 
+  // useEffect(() => {
+  //   getUserDetails();
+  // }, []);
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Box sx={style}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div
-            style={{
-              position: 'relative',
-              border: '3px solid rgb(8 95 247)',
-              width: '65px',
-              height: '65px',
-              borderRadius: '65px',
-              borderColor: 'black',
-              display: 'flex',
-              alignItems: 'center',
-              textAlign: 'center',
-              marginLeft: '10px',
-            }}
-          >
-            <div
-              style={{
-                marginLeft: '13px',
-                fontSize: '1.5rem',
-                fontFamily:
-                  'Helvetica Neue,Helvetica,Avenir Next,Arial,Roboto,Noto,sans-serif',
-                fontWeight: '700',
-              }}
-            >
-              {' '}
-              {firstName.charAt(0)}
-              {lastName.charAt(0)}
-            </div>
-          </div>
-          <div
-            style={{
-              marginLeft: '10px',
-              fontSize: '1.5rem',
-              fontFamily:
-                'Helvetica Neue,Helvetica,Avenir Next,Arial,Roboto,Noto,sans-serif',
-              fontWeight: '700',
-              lineHeight: '1.5rem',
-            }}
-          >
-            {userDetail ? userDetail.name : ''}
-            <div
-              style={{
-                marginLeft: '0px',
-                marginTop: ' 8px',
-                fontSize: '1rem',
-                fontWeight: '400',
-                lineHeight: '1em',
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <LocationOnIcon style={{ color: 'grey' }} />
-              San Jose, CA
-            </div>
-          </div>
-        </div>
-
-        <ResumeModal
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-          isOpen={isOpen}
-        />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: ' 30px',
-            marginBottom: '1rem',
-          }}
-        >
-          <div
-            style={{
-              borderColor: 'd4d2d0',
-              borderRadius: '8px',
-              border: '1px #afafaf solid',
-              marginBottom: '1rem',
-              marginTop: ' 8px',
-              marginLeft: '8px',
-              width: '100%',
-              boxShadow: '0 5px 1px -5px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flexStart',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <div
-              style={{
-                marginLeft: ' 20px',
-                marginTop: ' 8px',
-                fontWeight: '700',
-              }}
-            >
-              Resume
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginLeft: ' 20px',
-                marginTop: ' 20px',
-                marginBottom: '1rem',
-                width: '100%',
-              }}
-            >
-              <div style={{ display: 'flex' }}>
-                <PdfSVG />
-                <div style={{ marginLeft: ' 20px', marginTop: ' 8px' }}>
-                  Please upload resume
-                  <div
-                    style={{
-                      marginLeft: '0px',
-                      marginTop: ' 12px',
-                      fontSize: '0.8rem',
-                      fontWeight: '400',
-                      lineHeight: '0.8em',
-                      // display: 'flex',
-                      // alignItems: 'center',
-                      color: '#444444',
-                    }}
-                  >
-                    Added 10/09/2021
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: '0px',
-                      marginTop: ' 12px',
-                      fontSize: '0.8rem',
-                      fontWeight: '400',
-                      lineHeight: '0.8em',
-                      display: 'flex',
-                      alignItems: 'center',
-                      color: '#444444',
-                    }}
-                  >
-                    <VisibilityIcon
-                      style={{ color: 'grey', marginRight: '4px' }}
-                    />
-                    Public
-                  </div>
-                </div>
-                <div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    style={{ paddingTop: '10px' }}
-                    onChange={uploadResume}
-                  />
-                </div>
-              </div>
-              <MoreVertIcon
-                style={{ marginRight: '30px', marginTop: '-20px' }}
-                onClick={handleOpen}
-              />
-            </div>
-          </div>
-
           {showMe ? (
             <div
               style={{
@@ -348,7 +162,7 @@ function UserProfile() {
                   justifyContent: 'space-between',
                 }}
               >
-                <div>Contact Information</div>
+                <div>Experience and Skills</div>
                 <EditIcon
                   style={{ marginRight: '10px' }}
                   onClick={contactInfo}
@@ -373,7 +187,7 @@ function UserProfile() {
                     color: '#444444',
                   }}
                 >
-                  {userDetail ? userDetail.name : ''}
+                  {userDetail ? userDetail.EmployerName : ''}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <div
@@ -385,7 +199,13 @@ function UserProfile() {
                       color: '#444444',
                     }}
                   >
-                    {userDetail ? userDetail.emails ? userDetail.emails.length > 0 ? userDetail.emails[0] : '' : '' : ''}
+                    {userDetail
+                      ? userDetail.position
+                        ? userDetail.position.length > 0
+                          ? userDetail.position[0]
+                          : ''
+                        : ''
+                      : ''}
                   </div>
                 </div>
 
@@ -400,7 +220,7 @@ function UserProfile() {
                       color: '#444444',
                     }}
                   >
-                    {userDetail.contactNo ? userDetail.contactNo : ''}
+                    {userDetail.location ? userDetail.location : ''}
                   </div>
                 </div>
 
@@ -414,7 +234,20 @@ function UserProfile() {
                     color: '#444444',
                   }}
                 >
-                  {userDetail.city ? userDetail.city : ''}
+                  {userDetail.timePerioud ? userDetail.timePerioud : ''}
+                </div>
+
+                <div
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: ' 18px',
+                    fontSize: '0.8rem',
+                    fontWeight: '400',
+                    lineHeight: '0.8em',
+                    color: '#444444',
+                  }}
+                >
+                  {userDetail.description ? userDetail.description : ''}
                 </div>
               </div>
             </div>
@@ -474,14 +307,14 @@ function UserProfile() {
                       fontSize: '0.9em',
                     }}
                   >
-                    First Name
+                    Employer Name
                     <span style={{ color: '#db183f' }}>*</span>
                   </p>
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={firstName}
-                    onChange={(event) => setFirstName(event.target.value)}
+                    value={employerName}
+                    onChange={(event) => setEmployerName(event.target.value)}
                   />
                   <p
                     style={{
@@ -490,14 +323,14 @@ function UserProfile() {
                       fontSize: '0.9em',
                     }}
                   >
-                    Last Name
+                    Position
                     <span style={{ color: '#db183f' }}>*</span>
                   </p>
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={lastName}
-                    onChange={(event) => setLastName(event.target.value)}
+                    value={position}
+                    onChange={(event) => setPosition(event.target.value)}
                   />
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     <div
@@ -506,8 +339,9 @@ function UserProfile() {
                         marginTop: ' 18px',
                         fontWeight: '400',
                       }}
-                    >
-                      Email Address
+                      // eslint-disable-next-line
+                    >  
+                    Location
                     </div>
                     <div
                       style={{
@@ -523,12 +357,18 @@ function UserProfile() {
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', paddingTop: '10px' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      paddingTop: '10px',
+                    }}
+                  >
                     <TextField
                       sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                       required
-                      value={email}
-                      onChange={(event) => setEmail(event.target.value)}
+                      value={location}
+                      onChange={(event) => setLocation(event.target.value)}
                     />
                   </div>
 
@@ -540,7 +380,7 @@ function UserProfile() {
                         fontWeight: '400',
                       }}
                     >
-                      Phone Number (optional)
+                      Time Period
                     </div>
                     <div
                       style={{
@@ -571,8 +411,8 @@ function UserProfile() {
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={mobile}
-                    onChange={(event) => setmobile(event.target.value)}
+                    value={timePerioud}
+                    onChange={(event) => setTimePerioud(event.target.value)}
                   />
 
                   <div
@@ -600,7 +440,7 @@ function UserProfile() {
                       flexDirection: 'column',
                     }}
                   >
-                    <div>Location</div>
+                    <div>Description</div>
                     <div
                       style={{
                         marginTop: ' 12px',
@@ -621,15 +461,14 @@ function UserProfile() {
                       fontSize: '0.9em',
                     }}
                   >
-                    City - United States (change)
-                    {' '}
+                    Description (real)
                     <span style={{ color: '#db183f' }}>*</span>
                   </p>
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={city}
-                    onChange={(event) => setCity(event.target.value)}
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
                   />
                   <p
                     style={{
@@ -638,13 +477,13 @@ function UserProfile() {
                       fontSize: '0.9em',
                     }}
                   >
-                    Postal Code
+                    Skills
                   </p>
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={city}
-                    onChange={(event) => setCity(event.target.value)}
+                    value={skills}
+                    onChange={(event) => setSkills(event.target.value)}
                   />
                   <p
                     style={{
@@ -658,8 +497,8 @@ function UserProfile() {
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={skills}
-                    onChange={(event) => setSkills(event.target.value)}
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
                   />
                   <p
                     style={{
@@ -675,7 +514,7 @@ function UserProfile() {
                       type="file"
                       accept="image/*"
                       style={{ paddingTop: '10px' }}
-                      onChange={uploadCoverLetter}
+                      // onChange={uploadCoverLetter}
                     />
                   </div>
 
@@ -698,7 +537,7 @@ function UserProfile() {
                     }}
                     onClick={() => {
                       contactInfo();
-                      putUserDetails();
+                      // putUserDetails();
                     }}
                   >
                     Save
@@ -709,11 +548,8 @@ function UserProfile() {
           )}
         </div>
       </Box>
-      <>
-        <JobHistoryModal />
-      </>
     </div>
   );
 }
 
-export default UserProfile;
+export default JobHistoryModal;

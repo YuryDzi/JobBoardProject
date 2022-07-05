@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   coverLetters: [String],
   city: String,
   state: String,
+  skills: String,
   country: String,
   zip: String,
   jobPreferences: new Schema({
