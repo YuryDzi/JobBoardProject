@@ -13,7 +13,6 @@ import putUser from '../../api/user/putUser';
 import postUser from '../../api/user/postUser';
 import getUser from '../../api/user/getUser';
 import { userDets } from '../../app/actions';
-import PdfSVG from '../../components/svg/PdfSVG';
 
 function JobHistoryModal() {
   // const history = useHistory();
@@ -33,7 +32,7 @@ function JobHistoryModal() {
   const [description, setDescription] = useState('');
   const [website, setWebsite] = useState('');
   const [flag, setFlag] = useState(false);
-  const [skills, setSkills] = useState('');
+  const [skill, setSkills] = useState('');
   const contactInfo = () => {
     setShowMe(!showMe);
     return <div>here</div>;
@@ -52,86 +51,96 @@ function JobHistoryModal() {
     p: 4,
   };
 
-  // const getUserDetails = async () => {
-  //   const userDetails = await getUser(user.user.id);
-  //   console.log(userDetails);
-  //   if (!userDetails) {
-  //     console.log('bruh');
-  //     setFlag(true);
-  //   } else {
-  //     console.log('lol');
-  //     setUserDetail(userDetails.data);
-  //     setFirstName(userDetails.data.name.split(' ').slice(0, -1).join(' '));
-  //     setLastName(userDetails.data.name.split(' ').slice(-1).join(' '));
-  //     setmobile(userDetails.data.contactNo);
-  //     setCity(userDetails.data.city);
-  //     setZipcode(userDetails.data.zip);
-  //     setSkills(userDetails.data.skills);
-  //   }
-  // };
+  const getUserDetails = async () => {
+    const userDetails = await getUser(user.user.id);
+    console.log(userDetails);
+    if (!userDetails) {
+      console.log('bruh');
+      setFlag(true);
+    } else {
+      console.log('lol');
+      setUserDetail(userDetails.data);
+      setEmployerName(userDetails.data.EmployerNames.split(' ').slice(0, -1).join(' '));
+      setPosition(userDetails.data.positions);
+      setLocation(userDetails.data.locations);
+      setTimePerioud(userDetails.data.timePeriouds);
+      setWebsite(userDetails.data.websites);
+      setSkills(userDetails.data.skills);
+    }
+  };
 
-  // const putUserDetails = async () => {
-  //   const resumes = [];
-  //   resumes.push(resume);
-  //   const coverLetters = [];
-  //   const emails = [];
-  //   emails.push(email);
-  //   coverLetters.push(cover);
-  //   if (flag) {
-  //     const body = {
-  //       id: user.user.id,
-  //       name: firstName.concat(' ', lastName),
-  //       contactNo: mobile,
-  //       city: city,
-  //       zip: zipcode,
-  //       skills: skills,
-  //       resumes,
-  //       coverLetters,
-  //       emails,
-  //     };
-  //     console.log(body);
-  //     dispatch(
-  //       userDets({
-  //         name: firstName.concat(' ', lastName),
-  //         contactNo: mobile,
-  //         city: city,
-  //         zip: zipcode,
-  //         skills: skills,
-  //       }),
-  //     );
-  //     const response = await postUser(body);
-  //     getUserDetails();
-  //   } else {
-  //     console.log('in else');
-  //     const body = {
-  //       name: firstName.concat(' ', lastName),
-  //       contactNo: mobile,
-  //       city: city,
-  //       zip: zipcode,
-  //       skills: skills,
-  //       resumes,
-  //       coverLetters,
-  //       emails,
-  //     };
-  //     console.log(body);
-  //     dispatch(
-  //       userDets({
-  //         name: firstName.concat(' ', lastName),
-  //         contactNo: mobile,
-  //         city: city,
-  //         zip: zipcode,
-  //         skills: skills,
-  //       }),
-  //     );
-  //     const updateResponse = await putUser(body, user.user.id);
-  //     console.log(updateResponse);
-  //     getUserDetails();
-  //   }
-  // };
+  const putUserDetails = async () => {
+    const employerNames = [];
+    employerNames.push(employerName);
+    const locations = [];
+    locations.push(location);
+    const positions = [];
+    positions.push(position);
+    const timePeriouds = [];
+    timePeriouds.push(timePerioud);
+    const descriptions = [];
+    descriptions.push(description);
+    const websites = [];
+    websites.push(website);
+    const skills = [];
+    skills.push(skill);
+    if (flag) {
+      const body = {
+        id: user.user.id,
+        employerName,
+        position,
+        location,
+        timePerioud,
+        description,
+        website,
+        skill,
+      };
+      console.log(body);
+      dispatch(
+        userDets({
+          employerName,
+          position,
+          location,
+          timePerioud,
+          description,
+          website,
+          skill,
+        }),
+      );
+      const response = await postUser(body);
+      getUserDetails();
+    } else {
+      console.log('in else');
+      const body = {
+        employerName,
+        position,
+        location,
+        timePerioud,
+        description,
+        website,
+        skill,
+      };
+      console.log(body);
+      dispatch(
+        userDets({
+          employerName,
+          position,
+          location,
+          timePerioud,
+          description,
+          website,
+          skill,
+        }),
+      );
+      const updateResponse = await putUser(body, user.user.id);
+      console.log(updateResponse);
+      getUserDetails();
+    }
+  };
 
-  // useEffect(() => {
-  //   getUserDetails();
-  // }, []);
+  useEffect(() => {
+    getUserDetails();
+  }, []);
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Box sx={style}>
@@ -482,7 +491,7 @@ function JobHistoryModal() {
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={skills}
+                    value={skill}
                     onChange={(event) => setSkills(event.target.value)}
                   />
                   <p
@@ -537,7 +546,7 @@ function JobHistoryModal() {
                     }}
                     onClick={() => {
                       contactInfo();
-                      // putUserDetails();
+                      putUserDetails();
                     }}
                   >
                     Save

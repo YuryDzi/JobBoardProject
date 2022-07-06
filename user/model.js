@@ -9,7 +9,6 @@ const UserSchema = new Schema({
   coverLetters: [String],
   city: String,
   state: String,
-  skills: String,
   country: String,
   zip: String,
   jobPreferences: new Schema({
@@ -19,6 +18,16 @@ const UserSchema = new Schema({
   schedule: String,
   pay: String,
   remote: String,
+  }),
+
+  jobHistory: new Schema({
+   employerNames: [String],
+  positions: [String],
+  locations: [String],
+  timePeriouds: [String],
+  descriptions: [String],
+  websites: [String],
+  skills: [String],
   }),
 
 });
