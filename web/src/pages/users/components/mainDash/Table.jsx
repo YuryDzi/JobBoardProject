@@ -19,7 +19,6 @@ function createTime({ application }) {
 }
 
 function createData(name, trackingId, date, status) {
-  // const date = createTime();
   return {
     name, trackingId, date, status,
   };
@@ -79,7 +78,7 @@ export default function BasicTable() {
                   {row.name}
                 </TableCell>
                 <TableCell align="left">{row.trackingId}</TableCell>
-                <TableCell align="left">{row.date}</TableCell>
+                <TableCell align="left">date</TableCell>
                 <TableCell align="left">
                   <span className="status" style={makeStyle(row.status)}>
                     {row.status}
@@ -93,6 +92,11 @@ export default function BasicTable() {
           </TableBody>
         </Table>
       </TableContainer>
+      {/* <div>
+          {applications && applications.length
+            ? applications.map((application) => <ApplicationCard application={application} />)
+            : null}
+        </div> */}
     </div>
   );
 }

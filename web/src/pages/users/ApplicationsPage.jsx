@@ -7,6 +7,7 @@ import './css/ApplicationsPage.css';
 import SideBar from './components/mainDash/SideBar';
 import MainDash from './components/mainDash/MainDash';
 import RightSide from './components/mainDash/RightSide';
+// import ApplicationCard from './ApplicationCard';
 
 function ApplicationsPage() {
   // const [applications, setApplications] = useState([]);

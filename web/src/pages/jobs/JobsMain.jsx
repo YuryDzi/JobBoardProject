@@ -4,7 +4,7 @@
 /* eslint-disable prefer-destructuring */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-
+import './css/JobsMain.css';
 import PopularSearches from './PopularSearches';
 import Search from './Search';
 import Footer from '../../components/Footer';
@@ -87,10 +87,11 @@ function JobsMain() {
 
   return (
     <div
+      className="Jobs-Page"
       style={{
-        display: 'flex',
+        display: 'grid',
         flexDirection: 'column',
-        minHeight: '85vh',
+        minHeight: '100vh',
         marginTop: '30px',
       }}
     >

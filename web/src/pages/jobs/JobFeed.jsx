@@ -19,6 +19,7 @@ function JobFeed({
 
   return (
     <div
+      className="jobFeed"
       style={{
         display: 'flex',
         width: '100%',
@@ -29,7 +30,7 @@ function JobFeed({
         paddingLeft: '1rem',
         paddingRight: '1rem',
       }}
-      className="wrapper"
+      // className="wrapper"
     >
       {jobs ? jobs.length > 0
         ? (
