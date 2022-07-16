@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../css/Card.css';
+import '../../css/Card.css';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 // import { motion, AnimateSharedLayout } from 'framer-motion';

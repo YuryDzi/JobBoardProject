@@ -1,6 +1,6 @@
 import React from 'react';
-import '../css/Updates.css';
-import { UpdatesData } from '../Data/Data';
+import '../../css/Updates.css';
+import { UpdatesData } from '../../Data/Data';
 /* eslint-disable */
 const Updates = () => {
   return (

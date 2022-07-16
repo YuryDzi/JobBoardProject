@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomerReview from './CustomerReview';
 import Updates from './Updates';
-import '../css/RightSide.css';
+import '../../css/RightSide.css';
 /* eslint-disable */
 const RightSide = () => {
   return (

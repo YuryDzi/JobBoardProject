@@ -4,9 +4,9 @@ import { React } from 'react';
 // import getUserApplications from '../../api/application/getUserApplications';
 // import ApplicationCard from './ApplicationCard';
 import './css/ApplicationsPage.css';
-import SideBar from './components/SideBar';
-import MainDash from './components/MainDash';
-import RightSide from './components/RightSide';
+import SideBar from './components/mainDash/SideBar';
+import MainDash from './components/mainDash/MainDash';
+import RightSide from './components/mainDash/RightSide';
 
 function ApplicationsPage() {
   // const [applications, setApplications] = useState([]);

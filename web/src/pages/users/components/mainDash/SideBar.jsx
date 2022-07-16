@@ -1,8 +1,8 @@
 import { React, useState } from 'react';
-import '../css/SideBar.css';
+import '../../css/SideBar.css';
 import { UilSignOutAlt } from '@iconscout/react-unicons';
-import Logo from '../../../assets/img/companyLogo.jpg';
-import { SidebarData } from '../Data/Data';
+import Logo from '../../../../assets/img/companyLogo.jpg';
+import { SidebarData } from '../../Data/Data';
 
 function SideBar() {
   const [selected, setSelected] = useState(0);
