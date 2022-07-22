@@ -15,22 +15,16 @@ const router = express.Router();
  * @typedef Application
  * @property {string} jobId.required
  * @property {string} userId.required
- * @property {string} resume.required
- * @property {string} coverLetter.required
  * @property {object} answers.required
  */
 
 const bodyValidators = () => [
   body('jobId').exists().isString(),
   body('userId').exists().isString(),
-  body('resume').exists().isString(),
-  body('coverLetter').exists().isString(),
   body('answers').isObject(),
 ];
 
 const updateValidators = () => [
-  body('resume').optional().isString(),
-  body('coverLetter').optional().isString(),
   body('answers').optional().isObject(),
   body('status').optional().isString(),
 ];

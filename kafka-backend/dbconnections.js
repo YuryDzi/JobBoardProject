@@ -85,8 +85,6 @@ const getApplicationConnection = () => {
   const ApplicationSchema = new mongoose.Schema({
     jobId: mongoose.Types.ObjectId,
     userId: mongoose.Types.ObjectId,
-    resume: String,
-    coverLetter: String,
     answers: mongoose.Schema.Types.Mixed,
     date: Date,
     status: {
@@ -109,12 +107,12 @@ const getUserConnection = () => {
     about: String,
     contactNo: String,
     emails: [String],
-    resumes: [String],
-    coverLetters: [String],
     city: String,
     state: String,
     country: String,
     zip: String,
+    skills: [String],
+    website: String,
     jobPreferences: new mongoose.Schema({
       title: String,
     relocation: String,
@@ -123,7 +121,14 @@ const getUserConnection = () => {
     pay: String,
     remote: String,
     }),
-
+    jobHistory: new mongoose.Schema({
+      employerNames: [String],
+     positions: [String],
+     locations: [String],
+     start: [String],
+     end: [String],
+     descriptions: [String],
+     }),
   });
 
   const SalarySchema = new mongoose.Schema({

@@ -28,11 +28,10 @@ function JobHistoryModal() {
   const [employerName, setEmployerName] = useState('');
   const [position, setPosition] = useState('');
   const [location, setLocation] = useState('');
-  const [timePerioud, setTimePerioud] = useState('');
+  const [start, setTimePerioudStart] = useState('');
+  const [end, setTimePerioudEnd] = useState('');
   const [description, setDescription] = useState('');
-  const [website, setWebsite] = useState('');
   const [flag, setFlag] = useState(false);
-  const [skill, setSkills] = useState('');
   const contactInfo = () => {
     setShowMe(!showMe);
     return <div>here</div>;
@@ -55,17 +54,16 @@ function JobHistoryModal() {
     const userDetails = await getUser(user.user.id);
     console.log(userDetails);
     if (!userDetails) {
-      console.log('bruh');
+      console.log('no user details');
       setFlag(true);
     } else {
-      console.log('lol');
+      console.log('worked userdetails');
       setUserDetail(userDetails.data);
       setEmployerName(userDetails.data.EmployerNames.split(' ').slice(0, -1).join(' '));
       setPosition(userDetails.data.positions);
       setLocation(userDetails.data.locations);
-      setTimePerioud(userDetails.data.timePeriouds);
-      setWebsite(userDetails.data.websites);
-      setSkills(userDetails.data.skills);
+      setTimePerioudStart(userDetails.data.start);
+      setTimePerioudEnd(userDetails.data.end);
     }
   };
 
@@ -76,24 +74,21 @@ function JobHistoryModal() {
     locations.push(location);
     const positions = [];
     positions.push(position);
-    const timePeriouds = [];
-    timePeriouds.push(timePerioud);
+    const startDate = [];
+    startDate.push(start);
+    const endDate = [];
+    endDate.push(end);
     const descriptions = [];
     descriptions.push(description);
-    const websites = [];
-    websites.push(website);
-    const skills = [];
-    skills.push(skill);
     if (flag) {
       const body = {
         id: user.user.id,
         employerName,
         position,
         location,
-        timePerioud,
+        start,
+        end,
         description,
-        website,
-        skill,
       };
       console.log(body);
       dispatch(
@@ -101,10 +96,9 @@ function JobHistoryModal() {
           employerName,
           position,
           location,
-          timePerioud,
+          start,
+          end,
           description,
-          website,
-          skill,
         }),
       );
       const response = await postUser(body);
@@ -115,10 +109,9 @@ function JobHistoryModal() {
         employerName,
         position,
         location,
-        timePerioud,
+        start,
+        end,
         description,
-        website,
-        skill,
       };
       console.log(body);
       dispatch(
@@ -126,10 +119,9 @@ function JobHistoryModal() {
           employerName,
           position,
           location,
-          timePerioud,
+          start,
+          end,
           description,
-          website,
-          skill,
         }),
       );
       const updateResponse = await putUser(body, user.user.id);
@@ -243,7 +235,19 @@ function JobHistoryModal() {
                     color: '#444444',
                   }}
                 >
-                  {userDetail.timePerioud ? userDetail.timePerioud : ''}
+                  {userDetail.startDate ? userDetail.startDate : ''}
+                </div>
+                <div
+                  style={{
+                    marginLeft: '0px',
+                    marginTop: ' 18px',
+                    fontSize: '0.8rem',
+                    fontWeight: '400',
+                    lineHeight: '0.8em',
+                    color: '#444444',
+                  }}
+                >
+                  {userDetail.endDate ? userDetail.endDate : ''}
                 </div>
 
                 <div
@@ -389,7 +393,7 @@ function JobHistoryModal() {
                         fontWeight: '400',
                       }}
                     >
-                      Time Period
+                      Start
                     </div>
                     <div
                       style={{
@@ -420,8 +424,50 @@ function JobHistoryModal() {
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={timePerioud}
-                    onChange={(event) => setTimePerioud(event.target.value)}
+                    value={start}
+                    onChange={(event) => setTimePerioudStart(event.target.value)}
+                  />
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div
+                      style={{
+                        marginLeft: '0px',
+                        marginTop: ' 18px',
+                        fontWeight: '400',
+                      }}
+                    >
+                      End
+                    </div>
+                    <div
+                      style={{
+                        marginLeft: '0px',
+                        marginTop: ' 18px',
+                        fontSize: '0.7rem',
+                        fontWeight: '400',
+                        lineHeight: '0.8em',
+                        color: '#444444',
+                      }}
+                    >
+                      only provided to employers you apply
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      marginLeft: '0px',
+                      marginTop: ' 5px',
+                      marginBottom: '10px',
+                      fontSize: '0.7rem',
+                      fontWeight: '400',
+                      lineHeight: '0.8em',
+                      color: '#444444',
+                    }}
+                  >
+                    or respond to.
+                  </div>
+                  <TextField
+                    sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
+                    required
+                    value={end}
+                    onChange={(event) => setTimePerioudEnd(event.target.value)}
                   />
 
                   <div
@@ -479,54 +525,6 @@ function JobHistoryModal() {
                     value={description}
                     onChange={(event) => setDescription(event.target.value)}
                   />
-                  <p
-                    style={{
-                      fontWeight: 'bold',
-                      color: '#666',
-                      fontSize: '0.9em',
-                    }}
-                  >
-                    Skills
-                  </p>
-                  <TextField
-                    sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
-                    required
-                    value={skill}
-                    onChange={(event) => setSkills(event.target.value)}
-                  />
-                  <p
-                    style={{
-                      fontWeight: 'bold',
-                      color: '#666',
-                      fontSize: '0.9em',
-                    }}
-                  >
-                    Website (optional)
-                  </p>
-                  <TextField
-                    sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
-                    required
-                    value={website}
-                    onChange={(event) => setWebsite(event.target.value)}
-                  />
-                  <p
-                    style={{
-                      fontWeight: 'bold',
-                      color: '#666',
-                      fontSize: '0.9em',
-                    }}
-                  >
-                    CoverLetter
-                  </p>
-                  <div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ paddingTop: '10px' }}
-                      // onChange={uploadCoverLetter}
-                    />
-                  </div>
-
                   <button
                     className="reviewSubmitButton"
                     type="submit"

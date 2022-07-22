@@ -115,6 +115,8 @@ const Jobpost = ({ handleClose, getCompanyJobs }) => {
     let tempType = '';
     if (jobLocation.remote === true) {
       loc = 'remote';
+    } else if (jobLocation.hybrid === true) {
+      loc = 'hybrid';
     } else {
       loc = 'in_person';
     }

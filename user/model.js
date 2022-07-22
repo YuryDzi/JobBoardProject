@@ -5,12 +5,12 @@ const UserSchema = new Schema({
   about: String,
   contactNo: String,
   emails: [String],
-  resumes: [String],
-  coverLetters: [String],
   city: String,
   state: String,
   country: String,
   zip: String,
+  skills: [String],
+  website: String,
   jobPreferences: new Schema({
     title: String,
   relocation: String,
@@ -19,17 +19,14 @@ const UserSchema = new Schema({
   pay: String,
   remote: String,
   }),
-
   jobHistory: new Schema({
    employerNames: [String],
   positions: [String],
   locations: [String],
-  timePeriouds: [String],
+  start: [String],
+  end: [String],
   descriptions: [String],
-  websites: [String],
-  skills: [String],
   }),
-
 });
 
 const SalarySchema = new Schema({

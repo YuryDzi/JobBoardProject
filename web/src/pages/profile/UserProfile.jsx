@@ -45,11 +45,10 @@ function UserProfile() {
   const [mobile, setmobile] = useState('');
   const [city, setCity] = useState('');
   const [zipcode, setZipcode] = useState('');
-  const [resume, setResume] = useState('');
-  const [cover, setCover] = useState('');
   const [flag, setFlag] = useState(false);
   const [email, setEmail] = useState('');
   const [skills, setSkills] = useState('');
+  const [website, setWebsite] = useState('');
   const contactInfo = () => {
     setShowMe(!showMe);
     return <div>here</div>;
@@ -83,16 +82,15 @@ function UserProfile() {
       setCity(userDetails.data.city);
       setZipcode(userDetails.data.zip);
       setSkills(userDetails.data.skills);
+      setWebsite(userDetails.data.website);
     }
   };
 
   const putUserDetails = async () => {
-    const resumes = [];
-    resumes.push(resume);
-    const coverLetters = [];
     const emails = [];
     emails.push(email);
-    coverLetters.push(cover);
+    const skill = [];
+    skill.push(skills);
     if (flag) {
       const body = {
         id: user.user.id,
@@ -100,9 +98,7 @@ function UserProfile() {
         contactNo: mobile,
         city: city,
         zip: zipcode,
-        skills: skills,
-        resumes,
-        coverLetters,
+        skill,
         emails,
       };
       console.log(body);
@@ -111,7 +107,8 @@ function UserProfile() {
         contactNo: mobile,
         city: city,
         zip: zipcode,
-        skills: skills,
+        skill,
+        website: website,
       }));
       const response = await postUser(body);
       getUserDetails();
@@ -122,9 +119,8 @@ function UserProfile() {
         contactNo: mobile,
         city: city,
         zip: zipcode,
-        skills: skills,
-        resumes,
-        coverLetters,
+        skills,
+        website: website,
         emails,
       };
       console.log(body);
@@ -133,53 +129,20 @@ function UserProfile() {
         contactNo: mobile,
         city: city,
         zip: zipcode,
-        skills: skills,
+        skills,
+        website: website,
       }));
       const updateResponse = await putUser(body, user.user.id);
       console.log(updateResponse);
       getUserDetails();
     }
   };
-  const uploadResume = async (event) => {
-    event.preventDefault();
-    const fil = event.target.files[0];
-    const result = await postImages({ image: fil });
-    if (!result) {
-      return;
-    }
-    setResume(result.data.url);
-  };
-  const uploadCoverLetter = async (event) => {
-    event.preventDefault();
-    const fil = event.target.files[0];
-    const result = await postImages({ image: fil });
-    if (!result) {
-      return;
-    }
-    setCover(result.data.url);
-  };
-  useEffect(() => {
-    getUserDetails();
-  }, []);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <Box sx={style}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div
-            style={{
-              position: 'relative',
-              border: '3px solid rgb(8 95 247)',
-              width: '65px',
-              height: '65px',
-              borderRadius: '65px',
-              borderColor: 'black',
-              display: 'flex',
-              alignItems: 'center',
-              textAlign: 'center',
-              marginLeft: '10px',
-            }}
-          >
+          <div>
             <div
               style={{
                 marginLeft: '13px',
@@ -205,6 +168,7 @@ function UserProfile() {
             }}
           >
             {userDetail ? userDetail.name : ''}
+            {/* eslint-disable */}
             <div
               style={{
                 marginLeft: '0px',
@@ -216,109 +180,6 @@ function UserProfile() {
                 alignItems: 'center',
               }}
             >
-              <LocationOnIcon style={{ color: 'grey' }} />
-              San Jose, CA
-            </div>
-          </div>
-        </div>
-
-        <ResumeModal
-          handleOpen={handleOpen}
-          handleClose={handleClose}
-          isOpen={isOpen}
-        />
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            marginTop: ' 30px',
-            marginBottom: '1rem',
-          }}
-        >
-          <div
-            style={{
-              borderColor: 'd4d2d0',
-              borderRadius: '8px',
-              border: '1px #afafaf solid',
-              marginBottom: '1rem',
-              marginTop: ' 8px',
-              marginLeft: '8px',
-              width: '100%',
-              boxShadow: '0 5px 1px -5px',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flexStart',
-              justifyContent: 'flex-start',
-            }}
-          >
-            <div
-              style={{
-                marginLeft: ' 20px',
-                marginTop: ' 8px',
-                fontWeight: '700',
-              }}
-            >
-              Resume
-            </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                marginLeft: ' 20px',
-                marginTop: ' 20px',
-                marginBottom: '1rem',
-                width: '100%',
-              }}
-            >
-              <div style={{ display: 'flex' }}>
-                <PdfSVG />
-                <div style={{ marginLeft: ' 20px', marginTop: ' 8px' }}>
-                  Please upload resume
-                  <div
-                    style={{
-                      marginLeft: '0px',
-                      marginTop: ' 12px',
-                      fontSize: '0.8rem',
-                      fontWeight: '400',
-                      lineHeight: '0.8em',
-                      // display: 'flex',
-                      // alignItems: 'center',
-                      color: '#444444',
-                    }}
-                  >
-                    Added 10/09/2021
-                  </div>
-                  <div
-                    style={{
-                      marginLeft: '0px',
-                      marginTop: ' 12px',
-                      fontSize: '0.8rem',
-                      fontWeight: '400',
-                      lineHeight: '0.8em',
-                      display: 'flex',
-                      alignItems: 'center',
-                      color: '#444444',
-                    }}
-                  >
-                    <VisibilityIcon
-                      style={{ color: 'grey', marginRight: '4px' }}
-                    />
-                    Public
-                  </div>
-                </div>
-                <div>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    style={{ paddingTop: '10px' }}
-                    onChange={uploadResume}
-                  />
-                </div>
-              </div>
-              <MoreVertIcon
-                style={{ marginRight: '30px', marginTop: '-20px' }}
-                onClick={handleOpen}
-              />
             </div>
           </div>
 
@@ -646,14 +507,15 @@ function UserProfile() {
                     value={city}
                     onChange={(event) => setCity(event.target.value)}
                   />
-                  <p
+
+                    <p
                     style={{
                       fontWeight: 'bold',
                       color: '#666',
                       fontSize: '0.9em',
                     }}
                   >
-                    Website (optional)
+                    Skills
                   </p>
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
@@ -668,16 +530,14 @@ function UserProfile() {
                       fontSize: '0.9em',
                     }}
                   >
-                    CoverLetter
+                    Website (optional)
                   </p>
-                  <div>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      style={{ paddingTop: '10px' }}
-                      onChange={uploadCoverLetter}
-                    />
-                  </div>
+                  <TextField
+                    sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
+                    required
+                    value={website}
+                    onChange={(event) => setWebsite(event.target.value)}
+                  />
 
                   <button
                     className="reviewSubmitButton"

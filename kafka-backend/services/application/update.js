@@ -8,8 +8,6 @@ const handle_request = async (msg, callback) => {
     await Application.updateOne(
       { _id: Types.ObjectId(msg.id) },
       {
-        resume: msg.data.resume,
-        coverLetter: msg.data.coverLetter,
         status: msg.data.status,
       },
     );

@@ -3,9 +3,9 @@ const mongoose = require('mongoose');
 const ApplicationSchema = new mongoose.Schema({
   jobId: mongoose.Types.ObjectId,
   userId: mongoose.Types.ObjectId,
-  resume: String,
+  names: String,
   coverLetter: String,
-  answers: mongoose.Schema.Types.Mixed,
+  skills: mongoose.Schema.Types.Mixed,
   date: Date,
   status: {
     type: String,

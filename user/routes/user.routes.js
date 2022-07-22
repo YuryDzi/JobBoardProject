@@ -27,13 +27,14 @@ router.use('/:id/applications', applicationRouter);
  * @property {string} about
  * @property {string} contactNo
  * @property {Array.<string>} emails
- * @property {Array.<string>} resumes
- * @property {Array.<string>} coverLetters
+ * @property {Array.<string>} skills
  * @property {string} city
+ * @property {string} website
  * @property {string} state
  * @property {string} country
  * @property {string} zip
  * @property {Array.<string>} jobPreferences
+ * @property {Array.<string>} jobHistory
  */
 
 const bodyValidators = () => [
@@ -42,13 +43,14 @@ const bodyValidators = () => [
   body('about').optional().isString(),
   body('contactNo').optional().isString(),
   body('emails').optional().isArray(),
-  body('resumes').optional().isArray(),
-  body('coverLetters').optional().isArray(),
   body('city').optional().isString(),
   body('state').optional().isString(),
   body('country').optional().isString(),
   body('zip').optional().isString(),
+  body('skills').optional().isArray(),
+  body('website').optional().isString(),
   body('jobPreferences').optional().isObject(),
+  body('jobHistory').optional().isObject(),
 ];
 
 const [, ...updateValidators] = bodyValidators();

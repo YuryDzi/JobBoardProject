@@ -12,16 +12,10 @@ const router = express.Router({ mergeParams: true });
 /**
  * @typedef Application
  * @property {string} jobId.required
- * @property {string} resume.required
- * @property {string} coverLetter.required
- * @property {object} answers.required
  */
 
 const bodyValidators = () => [
   body('jobId').exists().isString(),
-  body('resume').exists().isString(),
-  body('coverLetter').exists().isString(),
-  body('answers').isObject(),
 ];
 
 /**
