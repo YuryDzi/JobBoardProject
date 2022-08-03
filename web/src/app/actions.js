@@ -38,6 +38,13 @@ export function userDets(payload) {
   };
 }
 
+export function userJobHistory(payload) {
+  return {
+    type: 'USER_HISTORY',
+    payload,
+  };
+}
+
 export function addSalary(payload) {
   return {
     type: 'ADD_SALARY',

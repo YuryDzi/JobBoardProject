@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import putUser from '../../api/user/putUser';
 import postUser from '../../api/user/postUser';
 import getUser from '../../api/user/getUser';
-import { userDets } from '../../app/actions';
+import { userJobHistory } from '../../app/actions';
 
 function JobHistoryModal() {
   // const history = useHistory();
@@ -32,13 +32,31 @@ function JobHistoryModal() {
   const [end, setTimePerioudEnd] = useState('');
   const [description, setDescription] = useState('');
   const [flag, setFlag] = useState(false);
-  const contactInfo = () => {
+  const experianceAndSkills = () => {
     setShowMe(!showMe);
     return <div>here</div>;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
+
+  const getUserHistory = async () => {
+    const userHistory = await getUser(user.user.id);
+    console.log(userHistory);
+    if (!userHistory) {
+      console.log('no user history');
+      setFlag(true);
+    } else {
+      console.log('worked user history');
+      setUserDetail(userHistory.data);
+      setEmployerName(userHistory.data.EmployerName);
+      setPosition(userHistory.data.position);
+      setLocation(userHistory.data.location);
+      setTimePerioudStart(userHistory.data.start);
+      setTimePerioudEnd(userHistory.data.end);
+      setDescription(userHistory.data.description);
+    }
   };
 
   const style = {
@@ -50,88 +68,70 @@ function JobHistoryModal() {
     p: 4,
   };
 
-  const getUserDetails = async () => {
-    const userDetails = await getUser(user.user.id);
-    console.log(userDetails);
-    if (!userDetails) {
-      console.log('no user details');
-      setFlag(true);
-    } else {
-      console.log('worked userdetails');
-      setUserDetail(userDetails.data);
-      setEmployerName(userDetails.data.EmployerNames.split(' ').slice(0, -1).join(' '));
-      setPosition(userDetails.data.positions);
-      setLocation(userDetails.data.locations);
-      setTimePerioudStart(userDetails.data.start);
-      setTimePerioudEnd(userDetails.data.end);
-    }
-  };
-
-  const putUserDetails = async () => {
-    const employerNames = [];
-    employerNames.push(employerName);
-    const locations = [];
-    locations.push(location);
-    const positions = [];
-    positions.push(position);
-    const startDate = [];
-    startDate.push(start);
-    const endDate = [];
-    endDate.push(end);
-    const descriptions = [];
-    descriptions.push(description);
+  const putUserHistory = async () => {
+    // const employerNames = [];
+    // employerNames.push(employerName);
+    // const locations = [];
+    // locations.push(location);
+    // const positions = [];
+    // positions.push(position);
+    // const startDate = [];
+    // startDate.push(start);
+    // const endDate = [];
+    // endDate.push(end);
+    // const descriptions = [];
+    // descriptions.push(description);
     if (flag) {
       const body = {
         id: user.user.id,
-        employerName,
-        position,
-        location,
-        start,
-        end,
-        description,
+        employerName: employerName,
+        position: position,
+        location: location,
+        start: start,
+        end: end,
+        description: description,
       };
       console.log(body);
       dispatch(
-        userDets({
-          employerName,
-          position,
-          location,
-          start,
-          end,
-          description,
+        userJobHistory({
+          employerName: employerName,
+          position: position,
+          location: location,
+          start: start,
+          end: end,
+          description: description,
         }),
       );
       const response = await postUser(body);
-      getUserDetails();
+      getUserHistory();
     } else {
       console.log('in else');
       const body = {
-        employerName,
-        position,
-        location,
-        start,
-        end,
-        description,
+        employerName: employerName,
+        position: position,
+        location: location,
+        start: start,
+        end: end,
+        description: description,
       };
       console.log(body);
       dispatch(
-        userDets({
-          employerName,
-          position,
-          location,
-          start,
-          end,
-          description,
+        userJobHistory({
+          employerName: employerName,
+          position: position,
+          location: location,
+          start: start,
+          end: end,
+          description: description,
         }),
       );
       const updateResponse = await putUser(body, user.user.id);
       console.log(updateResponse);
-      getUserDetails();
+      getUserHistory();
     }
   };
-
   useEffect(() => {
-    getUserDetails();
+    getUserHistory();
   }, []);
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -166,7 +166,7 @@ function JobHistoryModal() {
                 <div>Experience and Skills</div>
                 <EditIcon
                   style={{ marginRight: '10px' }}
-                  onClick={contactInfo}
+                  onClick={experianceAndSkills}
                 />
               </div>
               <div
@@ -290,7 +290,7 @@ function JobHistoryModal() {
                   flexDirection: 'column',
                 }}
               >
-                <div>Contact Information</div>
+                <div>Experience and Skills</div>
                 <div
                   style={{
                     marginLeft: '0px',
@@ -353,8 +353,8 @@ function JobHistoryModal() {
                         fontWeight: '400',
                       }}
                       // eslint-disable-next-line
-                    >  
-                    Location
+                    >
+                      Location
                     </div>
                     <div
                       style={{
@@ -543,8 +543,8 @@ function JobHistoryModal() {
                       textAlign: 'center',
                     }}
                     onClick={() => {
-                      contactInfo();
-                      putUserDetails();
+                      experianceAndSkills();
+                      putUserHistory();
                     }}
                   >
                     Save

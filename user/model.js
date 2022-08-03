@@ -20,12 +20,12 @@ const UserSchema = new Schema({
   remote: String,
   }),
   jobHistory: new Schema({
-   employerNames: [String],
-  positions: [String],
-  locations: [String],
-  start: [String],
-  end: [String],
-  descriptions: [String],
+   employerName: String,
+  position: String,
+  location: String,
+  start: String,
+  end: String,
+  description: String,
   }),
 });
 

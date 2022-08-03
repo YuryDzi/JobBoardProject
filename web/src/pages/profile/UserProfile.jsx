@@ -47,7 +47,7 @@ function UserProfile() {
   const [zipcode, setZipcode] = useState('');
   const [flag, setFlag] = useState(false);
   const [email, setEmail] = useState('');
-  const [skills, setSkills] = useState('');
+  const [skill, setSkills] = useState('');
   const [website, setWebsite] = useState('');
   const contactInfo = () => {
     setShowMe(!showMe);
@@ -71,10 +71,10 @@ function UserProfile() {
     const userDetails = await getUser(user.user.id);
     console.log(userDetails);
     if (!userDetails) {
-      console.log('bruh');
+      console.log('no user details');
       setFlag(true);
     } else {
-      console.log('lol');
+      console.log('worked, user details');
       setUserDetail(userDetails.data);
       setFirstName(userDetails.data.name.split(' ').slice(0, -1).join(' '));
       setLastName(userDetails.data.name.split(' ').slice(-1).join(' '));
@@ -89,8 +89,8 @@ function UserProfile() {
   const putUserDetails = async () => {
     const emails = [];
     emails.push(email);
-    const skill = [];
-    skill.push(skills);
+    const skills = [];
+    skills.push(skill);
     if (flag) {
       const body = {
         id: user.user.id,
@@ -98,7 +98,7 @@ function UserProfile() {
         contactNo: mobile,
         city: city,
         zip: zipcode,
-        skill,
+        skills,
         emails,
       };
       console.log(body);
@@ -107,7 +107,6 @@ function UserProfile() {
         contactNo: mobile,
         city: city,
         zip: zipcode,
-        skill,
         website: website,
       }));
       const response = await postUser(body);
@@ -129,7 +128,6 @@ function UserProfile() {
         contactNo: mobile,
         city: city,
         zip: zipcode,
-        skills,
         website: website,
       }));
       const updateResponse = await putUser(body, user.user.id);
@@ -137,6 +135,9 @@ function UserProfile() {
       getUserDetails();
     }
   };
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -482,7 +483,7 @@ function UserProfile() {
                       fontSize: '0.9em',
                     }}
                   >
-                    City - United States (change)
+                    City
                     {' '}
                     <span style={{ color: '#db183f' }}>*</span>
                   </p>
@@ -504,8 +505,8 @@ function UserProfile() {
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={city}
-                    onChange={(event) => setCity(event.target.value)}
+                    value={zipcode}
+                    onChange={(event) => setZipcode(event.target.value)}
                   />
 
                     <p
@@ -520,7 +521,7 @@ function UserProfile() {
                   <TextField
                     sx={{ width: '95%', height: '50%', fontSize: '0.9em' }}
                     required
-                    value={skills}
+                    value={skill}
                     onChange={(event) => setSkills(event.target.value)}
                   />
                   <p
