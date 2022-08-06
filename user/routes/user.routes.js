@@ -27,19 +27,24 @@ router.use('/:id/applications', applicationRouter);
  * @property {string} about
  * @property {string} contactNo
  * @property {Array.<string>} emails
- * @property {Array.<string>} skills
  * @property {string} city
  * @property {string} website
+ * @property {Array.<string>} skills
+ * @property {Array.<string>} employerNames
+ * @property {Array.<string>} positions
+ * @property {Array.<string>} locations
+ * @property {Array.<string>} end
+ * @property {Array.<string>} start
+ * @property {Array.<string>} descriptions
  * @property {string} state
  * @property {string} country
  * @property {string} zip
  * @property {Array.<string>} jobPreferences
- * @property {Array.<string>} jobHistory
  */
 
 const bodyValidators = () => [
   body('id').exists().isString(),
-  body('name').exists().isString(),
+  body('name').optional().isString(),
   body('about').optional().isString(),
   body('contactNo').optional().isString(),
   body('emails').optional().isArray(),
@@ -48,9 +53,14 @@ const bodyValidators = () => [
   body('country').optional().isString(),
   body('zip').optional().isString(),
   body('skills').optional().isArray(),
+  body('employerNames').optional().isArray(),
+  body('locations').optional().isArray(),
+  body('positions').optional().isArray(),
+  body('start').optional().isArray(),
+  body('end').optional().isArray(),
+  body('descriptions').optional().isArray(),
   body('website').optional().isString(),
   body('jobPreferences').optional().isObject(),
-  body('jobHistory').optional().isObject(),
 ];
 
 const [, ...updateValidators] = bodyValidators();

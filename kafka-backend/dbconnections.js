@@ -113,6 +113,12 @@ const getUserConnection = () => {
     zip: String,
     skills: [String],
     website: String,
+    employerNames: [String],
+    positions: [String],
+    locations: [String],
+    start: [String],
+    end: [String],
+    descriptions: [String],
     jobPreferences: new mongoose.Schema({
       title: String,
     relocation: String,
@@ -121,14 +127,6 @@ const getUserConnection = () => {
     pay: String,
     remote: String,
     }),
-    jobHistory: new mongoose.Schema({
-      employerNames: [String],
-     positions: [String],
-     locations: [String],
-     start: [String],
-     end: [String],
-     descriptions: [String],
-     }),
   });
 
   const SalarySchema = new mongoose.Schema({

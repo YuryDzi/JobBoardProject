@@ -11,6 +11,12 @@ const UserSchema = new Schema({
   zip: String,
   skills: [String],
   website: String,
+  employerNames: [String],
+  positions: [String],
+  locations: [String],
+  start: [String],
+  end: [String],
+  descriptions: [String],
   jobPreferences: new Schema({
     title: String,
   relocation: String,
@@ -18,14 +24,6 @@ const UserSchema = new Schema({
   schedule: String,
   pay: String,
   remote: String,
-  }),
-  jobHistory: new Schema({
-   employerName: String,
-  position: String,
-  location: String,
-  start: String,
-  end: String,
-  description: String,
   }),
 });
 
