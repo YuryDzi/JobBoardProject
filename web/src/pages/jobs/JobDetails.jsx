@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '../../components/Button';
 import Jobapplication from '../applications/Jobapplication';
-import Jobquestion from '../applications/Jobquestion';
+// import Jobquestion from '../applications/Jobquestion';
 
 const style = {
   position: 'absolute',
@@ -36,12 +36,12 @@ const edjsParser = edjsHTML();
 
 function JobDetails({ job }) {
   const history = useHistory();
-  const [open, setOpen] = React.useState(false);
-  const [gotoNextFlag, setGotoNextFlag] = useState(false);
+  const [open, setOpen] = useState(false);
+  // const [gotoNextFlag, setGotoNextFlag] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
-    setGotoNextFlag(false);
+    // setGotoNextFlag(false);
   };
 
   let html = '';
@@ -115,7 +115,8 @@ function JobDetails({ job }) {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              {gotoNextFlag ? <Jobquestion compId={job.company._id} _id={job._id} setOpen={setOpen} /> : <Jobapplication setGotoNextFlag={setGotoNextFlag} /> }
+              { open ? <Jobapplication compId={job.company._id} _id={job._id} setOpen={setOpen} /> : <div>test</div> }
+              {/* {gotoNextFlag ? <Jobquestion compId={job.company._id} _id={job._id} setOpen={setOpen} /> : <Jobapplication setGotoNextFlag={setGotoNextFlag} /> } */}
             </Box>
           </Modal>
         </CardContent>

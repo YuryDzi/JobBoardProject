@@ -7,114 +7,82 @@ import getUser from '../../api/user/getUser';
 import postApplication from '../../api/application/postApplication';
 import '../employee/css/Employeedetails.css';
 
-function Jobapplication({ compId, _id }) {
+function Jobapplication({ setOpen, _id }) {
   const user = useSelector((state) => state.user);
   // const [toPostFlag, settoPostFlag] = useState(false);
-//   const [userData, setUserData] = useState({
-//     emails: '',
-//     name: '',
-//     city: '',
-//     zip: '',
-//     website: '',
-//     location: '',
-//     contactNo: '',
-//     state: '',
-//     country: '',
-//     skills: '',
-//     employerNames: '',
-//     locations: '',
-//     positions: '',
-//     start: '',
-//     end: '',
-//     descriptions: '',
-//   });
+  const [userData, setUserData] = useState({
+    emails: '',
+    name: '',
+    city: '',
+    zip: '',
+    website: '',
+    location: '',
+    contactNo: '',
+    state: '',
+    country: '',
+    skills: '',
+    employerNames: '',
+    locations: '',
+    positions: '',
+    start: '',
+    end: '',
+    descriptions: '',
+  });
 
-//  const getUserData = async () => {
-//   await getUser(user.user.id).then((response) => {
-//     if (response) {
-//       setUserData({
-//         emails: response.data.emails[0],
-//         descriptions: response.data.descriptions,
-//         name: response.data.name,
-//         city: response.data.city,
-//         zip: response.data.zip,
-//         location: response.data.location,
-//         website: response.data.website,
-//         skills: response.data.skills,
-//         contactNo: response.data.contactNo,
-//         state: response.data.state,
-//         country: response.data.country,
-//         employerNames: response.data.employerNames,
-//         locations: response.data.locations,
-//         positions: response.data.positions,
-//         start: response.data.start,
-//         end: response.data.end,
-//         descriptions: response.data.descriptions,
-//       })
-//   }
-//   else {
-//     console.log('can not get user data')
-//   }
-//   })
-//  }
+  // useEffect(() => {
+  //   const testId = _id
+  // }, [])
 
-  // console.log(userData);
-
-  useEffect(() => {
-    const comanyId = {
-      compId,
-      id: _id,
-    };
-  }, []);
-
-  
-
-  const sendAppllication = async (payload) => {
+  const getUserData = async () => {
     await getUser(user.user.id).then((response) => {
       if (!response) {
         toast.error('can not get user data');
         console.log('can not get user data');
       }
-      else {
-        const payload = {
-          jobId: _id,
-          emails: response.data.emails,
-          name: response.data.name,
-          city: response.data.city,
-          zip: response.data.zip,
-          location: response.data.location,
-          website:  response.data.website,
-          skills: response.data.skills,
-          contactNo: response.data.contactNo,
-          state: response.data.state,
-          country: response.data.country,
-          employerNames: response.data.employerNames,
-          locations: response.data.locations,
-          positions:  response.data.positions,
-          start: response.data.start,
-          end: response.data.end,
-          descriptions: response.data.descriptions,
-        }; 
-      }
+      setUserData(response.data);
     })
-    await postApplication(payload, user.user.id).then((response) => {
+    }
+
+  const payload = {
+    jobId: _id,
+    emails: userData.emails,
+    name: userData.name,
+    city: userData.city,
+    zip: userData.zip,
+    location: userData.location,
+    website:  userData.website,
+    skills: userData.skills,
+    contactNo: userData.contactNo,
+    state: userData.state,
+    country: userData.country,
+    employerNames: userData.employerNames,
+    locations: userData.locations,
+    positions:  userData.positions,
+    start: userData.start,
+    end: userData.end,
+    descriptions: userData.descriptions,
+  }
+
+  const sendAppllication = (e) => {
+    e.preventDefault();
+     postApplication(payload, user.user.id).then((response) => {
       if (!response) {
+        toast.error('can not post userData');
         console.log('can not post userData');
         return;
       }
       if (response.status === 201) {
         toast.success('Application Submitted');
+        setOpen(false);
       }
     });
   }; 
 
-  // useEffect(() => {
-  //   getUserData()
-  //  }, []);
-
   useEffect(() => {
-    sendAppllication()
+    getUserData();
   }, []);
+
+  console.log(payload, 'this is userdata');
   
 
   return <div>Success!!!</div>;
