@@ -62,29 +62,29 @@ function Jobapplication({ setOpen, _id }) {
     end: userData.end,
     descriptions: userData.descriptions,
   }
-
-  const sendAppllication = (e) => {
-    e.preventDefault();
-     postApplication(payload, user.user.id).then((response) => {
+// TODO: check for a better ways to handle application
+  const sendAppllication = async () => {
+     await postApplication(payload, user.user.id).then((response) => {
       if (!response) {
         toast.error('can not post userData');
-        console.log('can not post userData');
+        console.log(payload, 'this is post payload');
         return;
       }
       if (response.status === 201) {
         toast.success('Application Submitted');
-        setOpen(false);
+        setOpen(false)
       }
     });
   }; 
 
   useEffect(() => {
     getUserData();
+    sendAppllication();
   }, []);
 
   console.log(payload, 'this is userdata');
   
-
+// TODO: add various ways for display designwise and functionality (add pop up message if the user not registered)
   return <div>Success!!!</div>;
 }
 
