@@ -9,82 +9,55 @@ import '../employee/css/Employeedetails.css';
 
 function Jobapplication({ setOpen, _id }) {
   const user = useSelector((state) => state.user);
-  // const [toPostFlag, settoPostFlag] = useState(false);
-  const [userData, setUserData] = useState({
-    emails: '',
-    name: '',
-    city: '',
-    zip: '',
-    website: '',
-    location: '',
-    contactNo: '',
-    state: '',
-    country: '',
-    skills: '',
-    employerNames: '',
-    locations: '',
-    positions: '',
-    start: '',
-    end: '',
-    descriptions: '',
-  });
 
-  // useEffect(() => {
-  //   const testId = _id
-  // }, [])
-
-  const getUserData = async () => {
+  const sendApplication = async () => {
     await getUser(user.user.id).then((response) => {
       if (!response) {
-        toast.error('can not get user data');
-        console.log('can not get user data');
-      }
-      setUserData(response.data);
-    })
-    }
-
-  const payload = {
-    jobId: _id,
-    emails: userData.emails,
-    name: userData.name,
-    city: userData.city,
-    zip: userData.zip,
-    location: userData.location,
-    website:  userData.website,
-    skills: userData.skills,
-    contactNo: userData.contactNo,
-    state: userData.state,
-    country: userData.country,
-    employerNames: userData.employerNames,
-    locations: userData.locations,
-    positions:  userData.positions,
-    start: userData.start,
-    end: userData.end,
-    descriptions: userData.descriptions,
-  }
-// TODO: check for a better ways to handle application
-  const sendAppllication = async () => {
-     await postApplication(payload, user.user.id).then((response) => {
-      if (!response) {
-        toast.error('can not post userData');
-        console.log(payload, 'this is post payload');
+        toast.error('can not GET user data');
+        console.log('can not GET user data');
         return;
       }
-      if (response.status === 201) {
-        toast.success('Application Submitted');
-        setOpen(false)
+      if (response) {
+        const payload = {
+          jobId: _id,
+          emails: response.data.emails,
+          name: response.data.name,
+          city: response.data.city,
+          zip: response.data.zip,
+          location: response.data.location,
+          website: response.data.website,
+          skills: response.data.skills,
+          contactNo: response.data.contactNo,
+          state: response.data.state,
+          country: response.data.country,
+          employerNames: response.data.employerNames,
+          locations: response.data.locations,
+          positions: response.data.positions,
+          start: response.data.start,
+          end: response.data.end,
+          descriptions: response.data.descriptions,
+        };
+        console.log(payload);
+        postApplication(payload, user.user.id).then((res) => {
+          if (!res) {
+            toast.error('can not POST user data');
+            return;
+          }
+          if (res) {
+            toast.success('Application Submitted');
+            return;
+          }
+        });
       }
     });
-  }; 
+    return;
+  };
 
   useEffect(() => {
-    getUserData();
-    sendAppllication();
+    sendApplication();
   }, []);
 
-  console.log(payload, 'this is userdata');
-  
-// TODO: add various ways for display designwise and functionality (add pop up message if the user not registered)
+  // TODO: add various ways for display designwise and functionality (add pop up message if the user not registered)
   return <div>Success!!!</div>;
 }
 
