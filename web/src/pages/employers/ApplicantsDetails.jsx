@@ -5,7 +5,7 @@
 /* eslint-disable no-unused-vars */
 import React from 'react';
 import {
-  Card, CardContent, Paper, Typography,
+  Card, CardContent, createFilterOptions, Paper, Typography,
 } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -195,7 +195,7 @@ function ApplicantsDetails({ companyId, details, getJobs }) {
                     marginBottom: '20px',
                   }}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
+                  {/* <div style={{ display: 'flex', flexDirection: 'column', marginTop: '20px' }}>
                     <span style={{ fontSize: '20px', fontWeight: '700' }}>Questions</span>
                     {Object.keys(option.answers).map((key) => (
                       <>
@@ -212,12 +212,12 @@ function ApplicantsDetails({ companyId, details, getJobs }) {
                           {option.answers[key]}
                         </span>
                       </>
-                    ))}
-                  </div>
+                    ))} */}
+                  {/* </div> */}
                   <div style={{ display: 'flex', flexDirection: 'row' }}>
-                    <span><b>CoverLetter: </b></span>
-                    <a href={option ? option.coverLetter : ''} target="_blank" rel="noreferrer">
-                      {option ? option.coverLetter : ''}
+                    <span style={{ marginRight: '5px ' }}><b>Most Recent Company: </b></span>
+                    <a href={option ? option.user.employerNames[0] : ''} target="blank">
+                      {option ? option.user.employerNames[0].charAt(0).toUpperCase() + option.user.employerNames[0].substring(1) : ''}
                     </a>
                   </div>
                   <div
@@ -227,9 +227,9 @@ function ApplicantsDetails({ companyId, details, getJobs }) {
                       marginTop: '0.5rem',
                     }}
                   >
-                    <span style={{ marginRight: '5px ' }}><b>Resume: </b></span>
-                    <a href={option ? option.resume : ''} target="blank">
-                      {option ? option.resume : ''}
+                    <span style={{ marginRight: '5px ' }}><b>Job Title: </b></span>
+                    <a href={option ? option.user.positions[0] : ''} target="blank">
+                      {option ? option.user.positions[0].charAt(0).toUpperCase() + option.user.positions[0].substring(1) : ''}
                     </a>
                   </div>
                 </div>

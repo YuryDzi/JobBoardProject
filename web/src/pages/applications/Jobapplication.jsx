@@ -37,7 +37,6 @@ function Jobapplication({ setOpen, _id }) {
           end: response.data.end,
           descriptions: response.data.descriptions,
         };
-        console.log(payload);
         postApplication(payload, user.user.id).then((res) => {
           if (!res) {
             toast.error('can not POST user data');

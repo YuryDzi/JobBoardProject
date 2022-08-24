@@ -8,7 +8,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ReactComponent as SendSVG } from '../../assets/svg/send.svg';
 import MoneySVG from '../../components/svg/MoneySVG';
 
-// function Applicants({ option }) {
 function Applicants({ option, selectedJobFlag }) {
   const date1 = new Date(option.postedOn);
   const date2 = new Date();
