@@ -94,73 +94,73 @@ function UserProfile() {
       setZipcode(userDetails.data.zip);
       setSkills(userDetails.data.skills);
       setWebsite(userDetails.data.website);
-      setEmployerName(userDetails.data.employerNames);
-      setDescription(userDetails.data.descriptions);
-      setPosition(userDetails.data.position);
-      setLocation(userDetails.data.locations);
-      setTimePerioudStart(userDetails.data.start);
-      setTimePerioudEnd(userDetails.data.end);
+      // setEmployerName(userDetails.data.employerNames);
+      // setDescription(userDetails.data.descriptions);
+      // setPosition(userDetails.data.position);
+      // setLocation(userDetails.data.locations);
+      // setTimePerioudStart(userDetails.data.start);
+      // setTimePerioudEnd(userDetails.data.end);
     }
   };
 
-  const putUserHistory = async () => {
-    const employerNames = [];
-    employerNames.push(employerName);
-    const locations = [];
-    locations.push(location);
-    const positions = [];
-    positions.push(position);
-    const start = [];
-    start.push(startDate);
-    const end = [];
-    end.push(endDate);
-    const descriptions = [];
-    descriptions.push(description);
-    if (flag) {
-      const body = {
-        id: user.user.id,
-        employerNames,
-        locations,
-        positions,
-        start,
-        end,
-        descriptions,
-      };
-      console.log(body);
-      dispatch(userDets({
-        employerNames,
-        locations,
-        positions,
-        start,
-        end,
-        descriptions,
-      }));
-      const response = await postUser(body);
-      getUserDetails();
-    } else {
-      console.log('in else');
-      const body = {
-        employerNames,
-        locations,
-        positions,
-        start,
-        end,
-        descriptions,
-      };
-      console.log(body);
-      dispatch(userDets({
-        employerNames,
-        locations,
-        positions,
-        start,
-        end,
-        descriptions,
-      }));
-      const updateResponseHistory = await putUser(body, user.user.id);
-      console.log(updateResponseHistory);
-      getUserDetails();
-    }
-  };
+  // const putUserHistory = async () => {
+  //   const employerNames = [];
+  //   employerNames.push(employerName);
+  //   const locations = [];
+  //   locations.push(location);
+  //   const positions = [];
+  //   positions.push(position);
+  //   const start = [];
+  //   start.push(startDate);
+  //   const end = [];
+  //   end.push(endDate);
+  //   const descriptions = [];
+  //   descriptions.push(description);
+  //   if (flag) {
+  //     const body = {
+  //       id: user.user.id,
+  //       employerNames,
+  //       locations,
+  //       positions,
+  //       start,
+  //       end,
+  //       descriptions,
+  //     };
+  //     console.log(body);
+  //     dispatch(userDets({
+  //       employerNames,
+  //       locations,
+  //       positions,
+  //       start,
+  //       end,
+  //       descriptions,
+  //     }));
+  //     const response = await postUser(body);
+  // getUserDetails();
+  //   } else {
+  //     console.log('in else');
+  //     const body = {
+  //       employerNames,
+  //       locations,
+  //       positions,
+  //       start,
+  //       end,
+  //       descriptions,
+  //     };
+  //     console.log(body);
+  //     dispatch(userDets({
+  //       employerNames,
+  //       locations,
+  //       positions,
+  //       start,
+  //       end,
+  //       descriptions,
+  //     }));
+  //     const updateResponseHistory = await putUser(body, user.user.id);
+  //     console.log(updateResponseHistory);
+  //     getUserDetails();
+  //   }
+  // };
 
   const putUserDetails = async () => {
     const emails = [];
@@ -646,8 +646,9 @@ function UserProfile() {
             </div>
           )}
         </div>
+        <JobHistoryModal />
       </Box>
-      <Box sx={style}>
+      {/* <Box sx={style}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           {showData ? (
             <div
@@ -952,10 +953,10 @@ function UserProfile() {
                 </form>
               </div>
             </div>
-          )}
+          )} */}
         </div>
-      </Box>
-    </div>
+    //   </Box>
+    // </div> 
     
   );
 }
