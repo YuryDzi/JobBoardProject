@@ -21,20 +21,6 @@ function basicTable() {
     });
   };
 
-  // function createData(name, trackingId, date, status) {
-  //   return {
-  //     name,
-  //     trackingId,
-  //     date,
-  //     status,
-  //   };
-  // }
-  // const rows = [
-  //   createData('Lasania Chiken Fri', 18908424, '2 March 2022', 'Approved'),
-  //   createData('Big Baza Bang ', 18908424, '2 March 2022', 'Pending'),
-  //   createData('Mouth Freshner', 18908424, '2 March 2022', 'Approved'),
-  //   createData('Cupcake', 18908421, '2 March 2022', 'Delivered'),
-  // ];
   /* eslint-disable */
   const makeStyle = (status) => {
     if (status === 'Approved') {
@@ -100,11 +86,6 @@ function basicTable() {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <div>
-            {applications && applications.length
-              ? applications.map((application) => <ApplicationCard application={application} />)
-              : null}
-          </div> */}
     </div>
   );
 }
