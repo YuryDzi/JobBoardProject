@@ -41,6 +41,7 @@ function UserProfile() {
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
+  const [userJobHistory, setUserJobHistory] = useState([]);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [mobile, setmobile] = useState('');

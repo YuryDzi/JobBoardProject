@@ -1,4 +1,7 @@
-import * as React from 'react';
+/* eslint-disable */
+import React from 'react' 
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,84 +10,107 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import '../../css/Table.css';
+import getUserApplications from '../../../../api/application/getUserApplications';
 
-function createTime({ application }) {
-  const date1 = new Date(application.date);
-  const date2 = new Date();
-  const diffTime = Math.abs(date2 - date1);
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  return {
-    diffDays,
-  };
-}
+function basicTable() {
+  const users = useSelector((state) => state.user.user.id);
 
-function createData(name, trackingId, date, status) {
-  return {
-    name, trackingId, date, status,
+  const [applications, setApplications] = useState([]);
+
+
+  const getUserApp = async () => {
+    await getUserApplications(users).then((res) => {
+      setApplications(res.data.nodes);
+    });
   };
-}
-const rows = [
-  createData('Lasania Chiken Fri', 18908424, createTime.diffDays, 'Approved'),
-  createData('Big Baza Bang ', 18908424, '2 March 2022', 'Pending'),
-  createData('Mouth Freshner', 18908424, '2 March 2022', 'Approved'),
-  createData('Cupcake', 18908421, '2 March 2022', 'Delivered'),
-];
-/* eslint-disable */
-const makeStyle = (status) => {
-  if (status === 'Approved') {
+  function createTime() {
+    const date1 = new Date(application.date);
+    const date2 = new Date();
+    const diffTime = Math.abs(date2 - date1);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return {
-      background: 'rgb(145 254 159 / 47%)',
-      color: 'green',
-    };
-  } else if (status === 'Pending') {
-    return {
-      background: '#ffadad8f',
-      color: 'red',
-    };
-  } else {
-    return {
-      background: '#59bfff',
-      color: 'white',
+      diffDays,
     };
   }
-};
 
-export default function BasicTable() {
+  function createData(name, trackingId, date, status) {
+    return {
+      name,
+      trackingId,
+      date,
+      status,
+    };
+  }
+  const rows = [
+    createData('Lasania Chiken Fri', 18908424, createTime.diffDays, 'Approved'),
+    createData('Big Baza Bang ', 18908424, '2 March 2022', 'Pending'),
+    createData('Mouth Freshner', 18908424, '2 March 2022', 'Approved'),
+    createData('Cupcake', 18908421, '2 March 2022', 'Delivered'),
+  ];
+  /* eslint-disable */
+  const makeStyle = (status) => {
+    if (status === 'Approved') {
+      return {
+        background: 'rgb(145 254 159 / 47%)',
+        color: 'green',
+      };
+    } else if (status === 'Pending') {
+      return {
+        background: '#ffadad8f',
+        color: 'red',
+      };
+    } else {
+      return {
+        background: '#59bfff',
+        color: 'white',
+      };
+    }
+  };
+
+  console.log(applications, 'general')
+
+  useEffect(() => {
+    getUserApp()
+  }, []);
+
+  
+
+ 
 
   return (
-    <div className="Table">
+    <div className='Table'>
       <h3>Recent Orders</h3>
       <TableContainer
         component={Paper}
         style={{ boxShadow: '0px 13px 20px 0px #80808029' }}
       >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label='simple table'>
           <TableHead>
             <TableRow>
               <TableCell>Product</TableCell>
-              <TableCell align="left">Tracking ID</TableCell>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Status</TableCell>
-              <TableCell align="left" />
+              <TableCell align='left'>Tracking ID</TableCell>
+              <TableCell align='left'>Date</TableCell>
+              <TableCell align='left'>Status</TableCell>
+              <TableCell align='left' />
             </TableRow>
           </TableHead>
           <TableBody style={{ color: 'white' }}>
             {rows.map((row) => (
               <TableRow
-                key={row.name}
+                key={applications}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell component="th" scope="row">
+                <TableCell component='th' scope='row'>
                   {row.name}
                 </TableCell>
-                <TableCell align="left">{row.trackingId}</TableCell>
-                <TableCell align="left">date</TableCell>
-                <TableCell align="left">
-                  <span className="status" style={makeStyle(row.status)}>
+                <TableCell align='left'>{applications.userId}</TableCell>
+                <TableCell align='left'>date</TableCell>
+                <TableCell align='left'>
+                  <span className='status' style={makeStyle(row.status)}>
                     {row.status}
                   </span>
                 </TableCell>
-                <TableCell align="left" className="Details">
+                <TableCell align='left' className='Details'>
                   Details
                 </TableCell>
               </TableRow>
@@ -93,10 +119,12 @@ export default function BasicTable() {
         </Table>
       </TableContainer>
       {/* <div>
-          {applications && applications.length
-            ? applications.map((application) => <ApplicationCard application={application} />)
-            : null}
-        </div> */}
+            {applications && applications.length
+              ? applications.map((application) => <ApplicationCard application={application} />)
+              : null}
+          </div> */}
     </div>
   );
 }
+
+export default basicTable;
