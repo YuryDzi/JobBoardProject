@@ -1,11 +1,14 @@
-import { React, useState } from 'react';
+import { React } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import '../../css/SideBar.css';
 import { UilSignOutAlt } from '@iconscout/react-unicons';
 import Logo from '../../../../assets/img/companyLogo.jpg';
 import { SidebarData } from '../../Data/Data';
+import { setDashboard } from '../../../../app/actions';
 
 function SideBar() {
-  const [selected, setSelected] = useState(0);
+  const selected = useSelector((state) => state.user.dashboard);
+  const dispatch = useDispatch();
 
   return (
     <div className="Sidebar">
@@ -18,18 +21,18 @@ function SideBar() {
       <div className="menu">
         {SidebarData.map((item, index) => (
           /* eslint-disable */
-          <div 
-            role="menu"
+          <div
+            role='menu'
             className={selected === index ? 'menuItem active' : 'menuItem'}
             key={index}
-            onClick={() => setSelected(index)}
-            onKeyDown={() => setSelected(index)}
+            onClick={() => dispatch(setDashboard(index))}
+            onKeyDown={() => dispatch(setDashboard(index))}
           >
             <item.icon />
             <span>{item.heading}</span>
           </div>
         ))}
-        <div className="menuItem">
+        <div className='menuItem'>
           <UilSignOutAlt />
         </div>
       </div>

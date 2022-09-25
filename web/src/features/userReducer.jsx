@@ -9,6 +9,7 @@ const initialState = {
   userDetail: '',
   userHistory: '',
   message: '',
+  dashboard: 0,
 };
 
 const reducer = (state = initialState, action) => {
@@ -40,6 +41,8 @@ const reducer = (state = initialState, action) => {
       return { ...state, userHistory: action.payload };
     case 'MESSAGE':
       return { ...state, message: action.payload };
+    case 'DASHBOARD':
+      return { ...state, dashboard: action.payload };
     default:
       return state;
   }

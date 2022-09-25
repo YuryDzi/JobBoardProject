@@ -64,3 +64,10 @@ export function message(payload) {
     payload,
   };
 }
+
+export function setDashboard(payload) {
+  return {
+    type: 'DASHBOARD',
+    payload,
+  };
+}

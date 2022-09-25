@@ -41,15 +41,13 @@ function basicTable() {
     }
   };
 
-  console.log(applications, 'general')
-
   useEffect(() => {
     getUserApp()
   }, []);
 
   return (
     <div className='Table'>
-      <h3>Recent Orders</h3>
+      <h3>Recent Applications</h3>
       <TableContainer
         component={Paper}
         style={{ boxShadow: '0px 13px 20px 0px #80808029' }}
@@ -58,6 +56,7 @@ function basicTable() {
           <TableHead>
             <TableRow>
               <TableCell>Position</TableCell>
+              <TableCell align='left'>Company</TableCell>
               <TableCell align='left'>Date</TableCell>
               <TableCell align='left'>Status</TableCell>
               <TableCell align='left' />
@@ -72,6 +71,7 @@ function basicTable() {
                 <TableCell component='th' scope='row'>
                 {application.job.summary}
                 </TableCell>
+                <TableCell align='left'>{application.job.company.name}</TableCell>
                 <TableCell align='left'>{new Date(application.date).toUTCString().slice(4, 16)}</TableCell>
                 <TableCell align='left'>
                   <span className='status' style={makeStyle(application.status)}>
