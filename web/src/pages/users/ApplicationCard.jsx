@@ -8,8 +8,10 @@ const ApplicationCard = ({ application }) => {
   const diffTime = Math.abs(date2 - date1);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
+  console.log(application, 'this is the application tab');
+
   return (
-    <>
+    <div>
       <Card sx={{ minWidth: 275, marginTop: '20px' }}>
         <CardContent>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -25,10 +27,17 @@ const ApplicationCard = ({ application }) => {
                   marginTop: '-15px',
                 }}
               >
-                <span style={{ fontSize: '18px', fontWeight: 'bold', marginTop: '20px' }}>
+                <span
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    marginTop: '20px',
+                  }}
+                >
                   {application.title}
                 </span>
-                <span>Google</span>
+                <span>{application.job.summary}</span>
+                <span>{application.job.company.name}</span>
                 <span style={{ marginTop: '10px' }}>
                   {application.job ? application.job.city : ''}
                   ,
@@ -46,7 +55,7 @@ const ApplicationCard = ({ application }) => {
           </div>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 };
 
