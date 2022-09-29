@@ -8,8 +8,6 @@ const ApplicationCard = ({ application }) => {
   const diffTime = Math.abs(date2 - date1);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-  console.log(application, 'this is the application tab');
-
   return (
     <div>
       <Card sx={{ minWidth: 275, marginTop: '20px' }}>
