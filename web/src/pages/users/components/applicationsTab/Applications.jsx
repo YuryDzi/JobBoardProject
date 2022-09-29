@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import getUserApplications from '../../../../api/application/getUserApplications';
-import ApplicationCard from '../../ApplicationCard';
+import ApplicationCard from './ApplicationCard';
 
 function Applications() {
   const [applications, setApplications] = useState([]);

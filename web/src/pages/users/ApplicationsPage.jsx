@@ -10,27 +10,12 @@ import RightSide from './components/mainDash/RightSide';
 // import ApplicationCard from './ApplicationCard';
 
 function ApplicationsPage() {
-  // const [applications, setApplications] = useState([]);
-
-  // const user = useSelector((state) => state.user.user.id);
-
-  // useEffect(() => {
-  //   getUserApplications(user).then((res) => {
-  //     setApplications(res.data.nodes);
-  //   });
-  // }, []);
-
   return (
     <div className="App-Page">
       <div className="AppGlass">
         <SideBar />
         <MainDash />
         <RightSide />
-        {/* <div>
-          {applications && applications.length
-            ? applications.map((application) => <ApplicationCard application={application} />)
-            : null}
-        </div> */}
       </div>
     </div>
   );
