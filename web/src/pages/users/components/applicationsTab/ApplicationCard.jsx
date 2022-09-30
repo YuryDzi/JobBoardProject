@@ -13,7 +13,7 @@ const ApplicationCard = () => {
   const users = useSelector((state) => state.user.user.id);
   const [applications, setApplications] = useState([]);
 
-  // fetching the data (user.applications)
+  // fetching the data (user's applications)
   const getUserApp = async () => {
     await getUserApplications(users).then((res) => {
       setApplications(res.data.nodes);
