@@ -9,6 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import '../../css/Table.css';
 import getUserApplications from '../../../../api/application/getUserApplications';
+import { makeStyle } from '../../Data/Data';
 
 function basicTable() {
   const users = useSelector((state) => state.user.user.id);
@@ -22,24 +23,7 @@ function basicTable() {
   };
 
   /* eslint-disable */
-  const makeStyle = (status) => {
-    if (status === 'Approved') {
-      return {
-        background: 'rgb(145 254 159 / 47%)',
-        color: 'green',
-      };
-    } else if (status === 'RECEIVED') {
-      return {
-        background: '#ffadad8f',
-        color: 'red',
-      };
-    } else {
-      return {
-        background: '#59bfff',
-        color: 'white',
-      };
-    }
-  };
+
 
   useEffect(() => {
     getUserApp()
