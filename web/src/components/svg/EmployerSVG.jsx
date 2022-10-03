@@ -154,7 +154,7 @@ const EmployerSVG = (props) => (
           <feMergeNode in="SourceGraphic" />
         </feMerge>
       </filter>
-      <mask id="__lottie_element_168" mask-type="alpha">
+      <mask id="__lottie_element_168">
         <g
           style={{
             display: 'block',
@@ -171,7 +171,7 @@ const EmployerSVG = (props) => (
           </g>
         </g>
       </mask>
-      <mask id="__lottie_element_3" mask-type="alpha">
+      <mask id="__lottie_element_3">
         <g
           style={{
             display: 'block',
@@ -372,7 +372,7 @@ const EmployerSVG = (props) => (
           <feMergeNode in="SourceGraphic" />
         </feMerge>
       </filter>
-      <mask id="__lottie_element_211" mask-type="alpha">
+      <mask id="__lottie_element_211">
         <g
           transform="matrix(1,0,0,1,1056,583.5)"
           opacity={1}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import '../../css/SideBar.css';
 import { UilSignOutAlt } from '@iconscout/react-unicons';
 import Logo from '../../../../assets/img/companyLogo.jpg';
-import { SidebarData } from '../../Data/Data';
+import { SidebarData } from '../../../../utils/staticData';
 import { setDashboard } from '../../../../app/actions';
 
 function SideBar() {

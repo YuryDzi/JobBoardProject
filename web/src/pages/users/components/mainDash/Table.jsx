@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import '../../css/Table.css';
 import getUserApplications from '../../../../api/application/getUserApplications';
-import { makeStyle } from '../../Data/Data';
+import { makeStyle } from '../../../../utils/staticData';
 
 function basicTable() {
   const users = useSelector((state) => state.user.user.id);
@@ -53,7 +53,7 @@ function basicTable() {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component='th' scope='row'>
-                {application.job.summary}
+                {application.job.title}
                 </TableCell>
                 <TableCell align='left'>{application.job.company.name}</TableCell>
                 <TableCell align='left'>{new Date(application.date).toUTCString().slice(4, 16)}</TableCell>

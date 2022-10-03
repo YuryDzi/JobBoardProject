@@ -425,7 +425,6 @@ function UpdateCompanyDetails() {
                 </label>
                 <select
                   className="employeeInput"
-                  select
                   value={industry}
                   onChange={(e) => setIndustry(e.target.value)}
                   style={{
@@ -461,7 +460,6 @@ function UpdateCompanyDetails() {
                 </label>
                 <select
                   className="employeeInput"
-                  select
                   value={size}
                   onChange={(e) => setSize(e.target.value)}
                   style={{

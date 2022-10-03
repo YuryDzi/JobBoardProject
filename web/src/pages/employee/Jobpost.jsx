@@ -235,7 +235,6 @@ const Jobpost = ({ handleClose, getCompanyJobs }) => {
               <label className="employeeLabel">Industry</label>
               <select
                 className="employeeInput"
-                select
                 value={industry}
                 onChange={(e) => setIndustry(e.target.value)}
                 style={{

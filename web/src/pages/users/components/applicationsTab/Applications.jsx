@@ -1,26 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import getUserApplications from '../../../../api/application/getUserApplications';
+import React from 'react';
 import ApplicationCard from './ApplicationCard';
 
 function Applications() {
-  const [applications, setApplications] = useState([]);
-
-  const user = useSelector((state) => state.user.user.id);
-
-  useEffect(() => {
-    getUserApplications(user).then((res) => {
-      setApplications(res.data.nodes);
-    });
-  }, []);
-  console.log(applications, 'this is application');
   return (
     <div>
-      {applications && applications.length
-        ? applications.map((application) => (
-          <ApplicationCard application={application} />
-        ))
-        : null}
+      <ApplicationCard />
     </div>
   );
 }

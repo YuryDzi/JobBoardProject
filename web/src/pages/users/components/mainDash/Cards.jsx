@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../css/Cards.css';
-import { cardsData } from '../../Data/Data';
+import { cardsData } from '../../../../utils/staticData';
 
 import Card from './Card';
 /* eslint-disable */
