@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,30 +7,19 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import '../../css/Table.css';
-import getUserApplications from '../../../../api/application/getUserApplications';
 import { makeStyle } from '../../../../utils/staticData';
 
-function ApplicationCard() {
-  const users = useSelector((state) => state.user.user.id);
-
+function ApplicationCard(props) {
+  /* eslint-disable */
   const [applications, setApplications] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const getUserApp = async () => {
-    await getUserApplications(users).then((res) => {
-      setApplications(res.data.nodes);
-      setTotalPages(Math.ceil(res.data.total / 10));
-    });
-  };
-
-  /* eslint-disable */
-
   useEffect(() => {
-    getUserApp();
-  }, []);
+    setApplications(props.applicationData);
+  }, [])
 
-  console.log(applications, 'this is applications');
+  console.log('this is applicationspage', applications);
 
   return (
     <div className="Table">

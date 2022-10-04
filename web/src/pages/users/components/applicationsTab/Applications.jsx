@@ -1,10 +1,10 @@
 import React from 'react';
 import ApplicationCard from './ApplicationCard';
 
-function Applications() {
+function Applications({ applicationData }) {
   return (
     <div>
-      <ApplicationCard />
+      <ApplicationCard applicationData={applicationData} />
     </div>
   );
 }

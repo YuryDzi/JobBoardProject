@@ -138,10 +138,6 @@ export const SidebarData = [
     heading: "Messages",
   },
   {
-    icon: UilPackage,
-    heading: 'Products'
-  },
-  {
     icon: UilChart,
     heading: 'Analytics'
   },
@@ -174,7 +170,7 @@ export const makeStyle=(status)=>{
 // Analytics Cards Data
 export const cardsData = [
   {
-    title: "Sales",
+    title: "Total Applications",
     color: {
       backGround: "linear-gradient(180deg, #bb67ff 0%, #c484f3 100%)",
       boxShadow: "0px 10px 20px 0px #e0c6f5",
@@ -184,13 +180,13 @@ export const cardsData = [
     png: UilUsdSquare,
     series: [
       {
-        name: "Sales",
+        name: "# of Applications",
         data: [31, 40, 28, 51, 42, 109, 100],
       },
     ],
   },
   {
-    title: "Revenue",
+    title: "Rejected",
     color: {
       backGround: "linear-gradient(180deg, #FF919D 0%, #FC929D 100%)",
       boxShadow: "0px 10px 20px 0px #FDC0C7",
@@ -200,13 +196,13 @@ export const cardsData = [
     png: UilMoneyWithdrawal,
     series: [
       {
-        name: "Revenue",
+        name: "Rejected",
         data: [10, 100, 50, 70, 80, 30, 40],
       },
     ],
   },
   {
-    title: "Expenses",
+    title: "Interview",
     color: {
       backGround:
         "linear-gradient(rgb(248, 212, 154) -146.42%, rgb(255 202 113) -46.42%)",
@@ -217,7 +213,7 @@ export const cardsData = [
     png: UilClipboardAlt,
     series: [
       {
-        name: "Expenses",
+        name: "Interview",
         data: [10, 25, 15, 30, 12, 15, 20],
       },
     ],

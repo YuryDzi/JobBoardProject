@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,26 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import '../../css/Table.css';
-import getUserApplications from '../../../../api/application/getUserApplications';
 import { makeStyle } from '../../../../utils/staticData';
 
-function basicTable() {
-  const users = useSelector((state) => state.user.user.id);
-
+function basicTable(props) {
+  /* eslint-disable */
   const [applications, setApplications] = useState([]);
 
-  const getUserApp = async () => {
-    await getUserApplications(users).then((res) => {
-      setApplications(res.data.nodes);
-    });
-  };
-
-  /* eslint-disable */
-
-
   useEffect(() => {
-    getUserApp()
-  }, []);
+    setApplications(props.applicationData);
+  }, [])
 
   return (
     <div className='Table'>

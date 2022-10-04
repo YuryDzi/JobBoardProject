@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../css/Cards.css';
 import { cardsData } from '../../../../utils/staticData';
-
 import Card from './Card';
 /* eslint-disable */
 const Cards = () => {
+  const [cardsDetails, setCardsDetails] = useState([{
+    barValue: 0,
+    value: 0,
+    series: {
+      name: '',
+      data: 0,
+    }
+  }]);
     /* eslint-disable */
   return (
     <div className="Cards">
