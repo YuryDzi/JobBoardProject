@@ -17,7 +17,7 @@ import CompanyValues from './pages/employee/CompanyValues';
 import EmployersMain from './pages/employers/EmployersMain';
 import EmployeeDashboard from './pages/employers/EmployeeDashboard';
 import FindCompanyMainAdmin from './pages/admin/FindCompanyMainAdmin';
-import Dashboard from './user/scenes/dashboard';
+import Dashboard from './user/Dashboard';
 
 // Config / other files
 import withAuth from './utils/withAuth';

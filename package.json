@@ -1,5 +1,9 @@
 {
   "dependencies": {
-    "framer-motion": "^4.1.17"
+    "framer-motion": "^4.1.17",
+    "node-sass": "^7.0.3"
+  },
+  "devDependencies": {
+    "sass": "^1.55.0"
   }
 }
