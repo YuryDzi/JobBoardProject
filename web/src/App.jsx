@@ -17,6 +17,7 @@ import CompanyValues from './pages/employee/CompanyValues';
 import EmployersMain from './pages/employers/EmployersMain';
 import EmployeeDashboard from './pages/employers/EmployeeDashboard';
 import FindCompanyMainAdmin from './pages/admin/FindCompanyMainAdmin';
+import Dashboard from './user/scenes/dashboard';
 
 // Config / other files
 import withAuth from './utils/withAuth';
@@ -24,7 +25,7 @@ import EmployeeChat from './pages/chat/EmployeeChat';
 import UserChat from './pages/chat/Userchat';
 import CompanyReviewsAdmin from './pages/admin/CompanyReviewsAdmin';
 import ReviewsPage from './pages/users/ReviewsPage';
-import ApplicationsPage from './pages/users/ApplicationsPage';
+// import ApplicationsPage from './pages/users/ApplicationsPage';
 
 function App() {
   return (
@@ -48,7 +49,7 @@ function App() {
           <Route path="/employee" component={withAuth(Employeedetails, 'employer', false)} />
           <Route path="/hire" component={withAuth(EmployersMain, 'any', false)} />
           <Route path="/users/reviews" component={withAuth(ReviewsPage, 'user', true)} />
-          <Route path="/users/applications" component={withAuth(ApplicationsPage, 'user', true)} />
+          <Route path="/users/applications" component={withAuth(Dashboard, 'user', true)} />
           <Route exact path="/" component={withAuth(JobsMain, 'any', true)} />
         </Switch>
       </Router>

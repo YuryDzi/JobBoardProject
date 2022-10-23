@@ -3,6 +3,7 @@
   "rules": {
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
-    "quotes": "off"
+    "quotes": "off",
+    "object-curly-newline": "off"
   }
 }

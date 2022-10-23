@@ -1,3 +1,4 @@
+import React from "react";
 import { useTheme } from "@mui/material";
 import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../theme";
@@ -41,7 +42,12 @@ const BarChart = ({ isDashboard = false }) => {
       }}
       keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
       indexBy="country"
-      margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+      margin={{
+        top: 50,
+        right: 130,
+        bottom: 50,
+        left: 60,
+      }}
       padding={0.3}
       valueScale={{ type: "linear" }}
       indexScale={{ type: "band", round: true }}
@@ -119,6 +125,7 @@ const BarChart = ({ isDashboard = false }) => {
           ],
         },
       ]}
+       /* eslint-disable */
       role="application"
       barAriaLabel={function (e) {
         return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;

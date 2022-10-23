@@ -1,6 +1,5 @@
+import React from "react";
 import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
-import { tokens } from "../../theme";
-import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
@@ -12,6 +11,11 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import { tokens } from "../../theme";
+import { mockTransactions } from "../../data/mockData";
+import './dashBoard.css';
+/* eslint-disable */
+
 
 const Dashboard = () => {
   const theme = useTheme();
